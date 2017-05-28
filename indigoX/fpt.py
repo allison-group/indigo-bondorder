@@ -1,25 +1,28 @@
 from collections import deque, defaultdict
+import copy
 from itertools import count as _count
 from itertools import product
+import os
 from subprocess import TimeoutExpired
-from indigo.config import (JAVA_PATH, LIBTW_PATH, WORK_DIR, INFINITY, ELECTRON_PAIRS, HYPERVALENT, 
-                           HYPERPENALTY, BASIS_LEVEL, RUN_QBND, COUNTERPOISE_CORRECTED, NUM_PROCESSES, 
-                           TD_TIMEOUT, ALLOW_FALLBACK, MAX_TREEWIDTH)
-from indigo.periodictable import PeriodicTable as PT
-from indigo.exception import IndigoExternalProgramError, IndigoUnfeasibleComputation
-from indigo.misc import (BondOrderAssignment, graph_to_dist_graph, electron_spots, electrons_to_add, 
-                         locs_sort, formal_charge, random_string)
-from indigo.data import atom_enes, bond_enes, qbnd_enes
+
+from indigoX.config import (JAVA_PATH, LIBTW_PATH, WORK_DIR, INFINITY, 
+                            ELECTRON_PAIRS, ALLOW_HYPERVALENT, HYPERPENALTY, 
+                            BASIS_LEVEL, RUN_QBND, COUNTERPOISE_CORRECTED, 
+                            TD_TIMEOUT, ALLOW_FALLBACK, MAX_TREEWIDTH)
+from indigoX.data import atom_enes, bond_enes, qbnd_enes
+from indigoX.exception import IndigoExternalProgramError, IndigoUnfeasibleComputation
+from indigoX.misc import (BondOrderAssignment, graph_to_dist_graph, electron_spots, electrons_to_add,
+                          locs_sort, formal_charge, random_string)
+from indigoX.periodictable import PeriodicTable as PT
 import networkx as nx
 import subprocess as sp
-import os
-import copy
 
 
 HALF_INF = INFINITY / 2
 INF_SQUARED = INFINITY ** 2
+BSSE = int(not COUNTERPOISE_CORRECTED)
 
-class DynamicFPT(BondOrderAssignment):
+class FPT(BondOrderAssignment):
     def __init__(self, G):
         self.init_G = G
         self.workdir = WORK_DIR / "BondOrderAssignment"
@@ -492,7 +495,8 @@ class TDVertScore(object):
         
         if len(v) == 1:
             element = self.G.node[v]['Z']
-            octet = PT[element].hyper if HYPERVALENT and self.G.degree(v) > 2 else PT[element].octet
+            octet = (PT[element].hyper if ALLOW_HYPERVALENT 
+                     and self.G.degree(v) > 2 else PT[element].octet)
             fc = self.G.node[v]['valence'] - self.G.node[v]['e-']  # pre placed 
             fc -= forgotten[1] * e_per_step                        # me placed
             fc -= self.G.degree(v)                                 # bonded
@@ -506,7 +510,7 @@ class TDVertScore(object):
                 val += e_per_step * e
                 
             try:
-                ene = _atom_energies[ATOM_LEVEL][element][fc]
+                ene = atom_enes[BASIS_LEVEL][element][fc]
             except KeyError:
                 pass
             
@@ -523,7 +527,7 @@ class TDVertScore(object):
             if order % 2:
                 ene = order / 2
             else:
-                ene = _bond_energies[BOND_LEVEL][(a, b, order//2)][BASIS_LEVEL]
+                ene = bond_enes[BASIS_LEVEL][(a, b, order//2)][BSSE]
                 
         elif len(v) == 2 and RUN_QBND:
             a, b = v
@@ -555,14 +559,14 @@ class TDVertScore(object):
             a, b = sorted([a,b])
             if order % 2:
                 ene = order / 2
-            elif (a, b, order//2) in _qbnd_energies[BOND_LEVEL]:
-                ene = _qbnd_energies[BOND_LEVEL][(a, b, order//2)][BASIS_LEVEL]
+            elif (a, b, order//2) in qbnd_enes[BASIS_LEVEL]:
+                ene = qbnd_enes[BASIS_LEVEL][(a, b, order//2)][BSSE]
             else:
                 a = a[:-1] if ('+' in a or '-' in a) else a
                 b = b[:-1] if ('+' in b or '-' in b) else b
                 a,b = sorted((a,b))
                 try:
-                    ene = _bond_energies[BOND_LEVEL][(a, b, order//2)][BASIS_LEVEL]
+                    ene = bond_enes[BASIS_LEVEL][(a, b, order//2)][BSSE]
                 except KeyError:
                     pass    
         return ene

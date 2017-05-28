@@ -1,24 +1,22 @@
-from multiprocessing_on_dill import Pool
+from multiprocessing import Pool
 
-from indigo.config import ELECTRON_PAIRS
-from indigo.exception import IndigoUnfeasibleComputation
+from indigoX.config import INIT_WITH_GA, NUM_PROCESSES
+from indigoX.exception import IndigoUnfeasibleComputation
 
-from .misc import (BondOrderAssignment, graph_to_dist_graph, electron_spots,
+from indigoX.misc import (BondOrderAssignment, graph_to_dist_graph, electron_spots,
                    electrons_to_add, locs_sort, HashBitArray, graph_setup,
-                   node_energy, bitarray_to_reallocs, formal_charge)
+                   node_energy, bitarray_to_assignment)
 
 
 class LocalOptimisation(BondOrderAssignment):
-    def __init__(self, G, init_a=None, old_init=False):
+    def __init__(self, G):
         self.init_G = G
-        self.init_a = init_a
-        self.old_init = old_init
         
     def initialise(self):
         self.G = graph_to_dist_graph(self.init_G)
         self.target = electrons_to_add(self.init_G)
         self.locs = locs_sort(electron_spots(self.init_G), self.G)
-        if self.init_a is None and not self.old_init:
+        if INIT_WITH_GA:
             self.init_a = HashBitArray(len(self.locs))
             self.init_a.setall(False)
             base_energy = self.calc_energy(self.init_a)[1]
@@ -34,7 +32,7 @@ class LocalOptimisation(BondOrderAssignment):
                 self.init_a[min_i] = True
                 base_energy += energy_diffs[min_i]
                 all_locs.remove(min_i)
-        elif self.init_a is None and self.old_init:
+        else:
             self.init_a = HashBitArray(len(self.locs))
             self.init_a.setall(False)
             self.init_a[:self.target] = True
@@ -49,7 +47,7 @@ class LocalOptimisation(BondOrderAssignment):
         current_min = [self.init_a]
         min_round = min_ene + 1         # So the while loop is entered, 
         round_mins = current_min[:]     # regardless of min_ene value.
-        pool = Pool(processes=8)
+        pool = Pool(processes=NUM_PROCESSES)
         while abs(min_round - min_ene) > 1e-10:
             min_ene = min_round
             current_min = round_mins[:]
@@ -66,7 +64,7 @@ class LocalOptimisation(BondOrderAssignment):
                 elif -1e-10 < n_ene - min_round < 1e-10:
                     round_mins.append(n)
         pool.terminate()
-        self.bitarray_to_assignment(current_min[0])
+        bitarray_to_assignment(self.init_G, current_min[0], self.locs)
         return self.init_G, seen[current_min[0]]
 
     def calc_energy(self, a):
@@ -95,17 +93,4 @@ class LocalOptimisation(BondOrderAssignment):
                 b[j_loc] = True
                 yield b
                 
-    def bitarray_to_assignment(self, barry):
-        locs = bitarray_to_reallocs(barry, self.locs)
-        
-        self.G = graph_to_dist_graph(self.init_G)
-        e_per_count = 2 if ELECTRON_PAIRS else 1
-        for i in locs:
-            self.G.node[i]['e-'] += e_per_count
-        
-        for n in self.G:
-            if len(n) == 1:
-                self.init_G.node[n[0]]['formal_charge'] = formal_charge(self.G, n)
-            if len(n) == 2:
-                self.init_G[n[0]][n[1]]['order'] = self.G.node[n]['e-'] // 2
     

@@ -1,17 +1,24 @@
-from indigo.algorithm.bondorder.dynamic import DynamicFPT
-from indigo.algorithm.bondorder.localoptimisation import LocalOptimisation
-from indigo.config import SUPPORTED_ELEMENTS
-from indigo.data.basedata import BaseAlgorithm
-from indigo.data.periodictable import PeriodicTable as PT
-from indigo.exception import IndigoUnfeasibleComputation, IndigoMissingParameters
-from indigo.graph.modgraph import nx_graph
+from indigoX.astar import AStar
+from indigoX.config import SUPPORTED_ELEMENTS, BALL_AVAILABLE
+from indigoX.exception import (IndigoUnfeasibleComputation,
+                               IndigoMissingParameters)
+from indigoX.fpt import FPT
+from indigoX.ga import GeneticAlogrithm
+from indigoX.lopt import LocalOptimisation
+from indigoX.misc import obmol_to_graph, _get_logger
+from indigoX.periodictable import PeriodicTable as PT
 import openbabel as ob
+if BALL_AVAILABLE:
+    from indigoX.ball import BallOpt
 
 
-class FormalBondOrders(BaseAlgorithm):
-    def __init__(self, system, method='fpt'):
-        self.sys = system
-        self.G = nx_graph(system)
+
+class FormalBondOrders(object):
+    log = _get_logger()
+    
+    def __init__(self, obMol, method='fpt', total_charge=0):
+        self.sys = obMol
+        self.G = obmol_to_graph(obMol)
         self.method = method.lower()
         all_e = set(self.G.node[n]['element'] for n in self.G)
         if not all_e.issubset(SUPPORTED_ELEMENTS):
@@ -35,10 +42,20 @@ class FormalBondOrders(BaseAlgorithm):
             assignment[a][b]['aromatic'] = bond.IsAromatic()
     
     def optimise(self):
-        if self.method == 'fpt':
-            processor = DynamicFPT(self.G)
-        elif self.method == 'lo':
+        if self.method in ['fpt','dynamic']:
+            processor = FPT(self.G)
+        elif self.method in ['lo','local']:
             processor = LocalOptimisation(self.G)
+        elif self.method in ['a*','astar']:
+            processor = AStar(self.G)
+        elif self.method in ['ga','genetic']:
+            processor = GeneticAlogrithm(self.G)
+        elif BALL_AVAILABLE and self.method == 'ball':
+            processor = BallOpt(self.G)
+            self.log.warning("BALL method selected. Formal charges will not be "
+                             "optimised.")
+        elif not BALL_AVAILABLE and self.method == 'ball':
+            raise IndigoUnfeasibleComputation('The BALL library cannot be loaded.')
         else:
             raise IndigoMissingParameters('Unknown optimisation method: {}'
                                           ''.format(self.method))

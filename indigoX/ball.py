@@ -1,7 +1,10 @@
+from copy import deepcopy
+
 import BALLCore as BALL
-from indigo.config import SOURCE_DIR, INFINITY, MAX_SOLUTIONS
-from indigo.misc import BondOrderAssignment, graph_to_dist_graph, node_energy
-                   
+from indigoX.config import SOURCE_DIR, INFINITY, MAX_SOLUTIONS
+from indigoX.misc import BondOrderAssignment, graph_to_dist_graph, node_energy
+
+
 BALL_ELEMENTS = dict(
     H=BALL.PTE['H'],  He=BALL.PTE['HE'], Li=BALL.PTE['LI'],
     Be=BALL.PTE['BE'], B=BALL.PTE['B'],  C=BALL.PTE['C'],
@@ -59,11 +62,8 @@ bop.options.setBool(opts.ADD_HYDROGENS, False)
 bop.options.set(opts.INIFile, str(SOURCE_DIR / 'data' / 'OriginalBO.xml'))
 
 class BallOpt(BondOrderAssignment):
-    def __init__(self, G, include_fc=False, ref_ene=None, bond_ene=None):
+    def __init__(self, G):
         self.init_G = G
-        self.fc = include_fc
-        self.ref = ref_ene
-        self.bond_ene = bond_ene
         
     def initialise(self):
         self.G = graph_to_dist_graph(self.init_G)
@@ -94,9 +94,9 @@ class BallOpt(BondOrderAssignment):
         self.system.insert(self.mol)
 
     def run(self):
-        best_ref = INFINITY * INFINITY
-        best_bond = INFINITY * INFINITY
-        matched_ref = matched_bond = False
+        best_ene = INFINITY * INFINITY
+        best_g = None
+        
         self.initialise()
         self.system.apply(bop)
         for i in range(bop.getNumberOfComputedSolutions()):
@@ -115,21 +115,20 @@ class BallOpt(BondOrderAssignment):
                 self.G.node[(a, b)]['e-'] = bo * 2
             
             i_ene = round(sum(node_energy(self.G, n) for n in self.G),5)
-            b_only = round(sum(node_energy(self.G, n) for n in self.G if len(n) == 2),5)
-            if not matched_ref and -1e-10 < self.ref - i_ene < 1e-10:
-                matched_ref = True
-                best_ref = i_ene
-            if not matched_bond and -1e-10 < self.bond_ene - b_only < 1e-10:
-                matched_bond = True
-                best_bond = b_only
-            if not matched_ref and i_ene < best_ref:
-                best_ref = i_ene
-            if not matched_bond and b_only < best_bond:
-                best_bond = b_only
+            if i_ene < best_ene:
+                best_ene = i_ene
+                best_g = self.assignment_to_graph()
                 
-            if matched_bond and matched_ref:
-                break
-                
-        return None, (best_ref, best_bond)
+        return best_g, best_ene
+    
+    def assignment_to_graph(self):
+        G = deepcopy(self.init_G)
+        for v in self.G:
+            if len(v) == 1:
+                G.node[v[0]]['formal_charge'] = 0
+            if len(v) == 2:
+                G[v[0]][v[1]]['order'] = self.G.node[v]['e-'] // 2
+        return G
+        
        
         

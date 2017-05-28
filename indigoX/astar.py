@@ -6,13 +6,14 @@ from time import perf_counter
 from indigoX.config import (INFINITY, BASIS_LEVEL, TIMEOUT, HEURISTIC,
                            COUNTERPOISE_CORRECTED, ELECTRON_PAIRS,
                            INITIAL_LO_ENERGY)
-from indigoX.data import atom_enes, bond_enes, qbnd_enes
+from indigoX.data import atom_enes, bond_enes
 from indigoX.exception import IndigoMissingParameters
 from indigoX.lopt import LocalOptimisation
 from indigoX.misc import (graph_to_dist_graph, electron_spots, electrons_to_add,
                          locs_sort, BondOrderAssignment, graph_setup, HashBitArray,
-                         node_energy, bitarray_to_reallocs, calculable_nodes)
+                         node_energy, bitarray_to_assignment, calculable_nodes)
 
+BSSE = int(not COUNTERPOISE_CORRECTED)
 
 class AStar(BondOrderAssignment):
     def __init__(self, G):
@@ -40,7 +41,7 @@ class AStar(BondOrderAssignment):
             self.choices[i] = self.choices[i][1]
             
         if not INITIAL_LO_ENERGY:
-            self.max_queue_energy = INFINITY
+            self.max_queue_energy = INFINITY / 2
         else:
             lo = LocalOptimisation(self.init_G)
             _, self.max_queue_energy = lo.run()
@@ -69,10 +70,11 @@ class AStar(BondOrderAssignment):
         enqueued = {}
         explored = {}
         while q:
-            qcost, it, curvert, start, stop, child, dist, parent = pop(q)
+            qcost, _, curvert, start, stop, child, dist, parent = pop(q)
             
             if stop >= len(self.locs) and curvert[0].count() == self.target:
-                return bitarray_to_reallocs(curvert[0], self.locs), dist
+                bitarray_to_assignment(self.init_G, curvert[0], self.locs)
+                return self.init_G, dist
                 
             if curvert in explored:
                 continue
@@ -135,6 +137,8 @@ class AStar(BondOrderAssignment):
                     self.G.node[n]['fc'] = g_info[n]['fc']
                 
         ene = sum(node_energy(self.G, n) for n in calculable)
+        if ene > INFINITY / 2:
+            ene = INFINITY
         return round(ene, 5)   
     
 # Heuristics
@@ -147,8 +151,9 @@ def promiscuous(G, a, calculable, stop, target, locs):
     if to_place < 0:
         return INFINITY
     
-    a_enes = _atom_energies[ATOM_LEVEL]
-    b_enes = _bond_energies[BOND_LEVEL]
+    # Doesn't worry about charged bonds
+    a_enes = atom_enes[BASIS_LEVEL]
+    b_enes = bond_enes[BASIS_LEVEL]
     
     for n in G:
         if n in calculable:
@@ -164,7 +169,7 @@ def promiscuous(G, a, calculable, stop, target, locs):
             min_ene = 0
             for o in (1,2,3):
                 try:
-                    o_ene = b_enes[(a_element, b_element, o)][BASIS_LEVEL]
+                    o_ene = b_enes[(a_element, b_element, o)][BSSE]
                 except KeyError:
                     continue
                 if o_ene < min_ene:
@@ -173,7 +178,7 @@ def promiscuous(G, a, calculable, stop, target, locs):
             
     return h_ene
 
-def abstemious(G, a, calculable, stop, target, locs, g_info=None):
+def abstemious(G, a, calculable, stop, target, locs):
     h_ene = 0
     placed = a[:stop].count()
     to_place = target - placed
@@ -185,13 +190,7 @@ def abstemious(G, a, calculable, stop, target, locs, g_info=None):
     
     extra_counts = {k:locs.count(k) for k in set(locs)}
     extra_able = set(locs[stop:])
-    if g_info is None:
-        graph_setup(G, a, locs)
-    else:
-        for n in G:
-            G.node[n]['e-'] = g_info[n]['e-']
-            if len(n) == 1:
-                G.node[n]['fc'] = g_info[n]['fc']
+    graph_setup(G, a, locs)
     
     # note where all the extra electrons can go
     for n in G:
@@ -227,7 +226,7 @@ def abstemious(G, a, calculable, stop, target, locs, g_info=None):
             
             fcs = set(x[0] for x in fcs)
             
-            a_enes = _atom_energies[ATOM_LEVEL][G.node[n]['Z']]
+            a_enes = atom_enes[BASIS_LEVEL][G.node[n]['Z']]
             try:
                 h_ene += min(v for k, v in a_enes.items() if k in fcs)
             except ValueError:
@@ -243,8 +242,8 @@ def abstemious(G, a, calculable, stop, target, locs, g_info=None):
             b_ele = G.node[(n[1],)]['Z']
             if b_ele < a_ele:
                 a_ele, b_ele = b_ele, a_ele
-            b_enes = _bond_energies[BOND_LEVEL]
-            h_ene += min(b_enes[(a_ele, b_ele, o//2)][BASIS_LEVEL] for o in bos)     
+            b_enes = bond_enes[BASIS_LEVEL]
+            h_ene += min(b_enes[(a_ele, b_ele, o//2)][BSSE] for o in bos)     
        
     return h_ene
     

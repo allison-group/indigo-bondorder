@@ -6,15 +6,15 @@ from time import perf_counter
 
 from scipy.misc import comb
 
-from indigo.config import (ELECTRON_PAIRS, MUTATE_PROB, MIN_GENERATIONS,
-                           MAX_GENERATIONS, BRUTEFORCE_CUTOFF, CONVERGENCE,
-                           POP_SIZE, ELITEISM_SIZE, BREEDING_ELITEISM,
-                           SEED_COUNT, TIMEOUT)
+from indigoX.config import (ELECTRON_PAIRS, MUTATE_PROB, MIN_GENERATIONS,
+                            MAX_GENERATIONS, BRUTEFORCE_CUTOFF, CONVERGENCE,
+                            POP_SIZE, ELITEISM_SIZE, BREEDING_ELITEISM,
+                            SEED_COUNT, TIMEOUT, NUM_PROCESSES)
+from indigoX.misc import (formal_charge, node_energy, HashBitArray,
+                          BondOrderAssignment, graph_to_dist_graph,
+                          electron_spots, electrons_to_add, locs_sort,
+                          bitarray_to_assignment)
 import numpy as np
-
-from .misc import (formal_charge, node_energy, HashBitArray, BondOrderAssignment,
-                   graph_to_dist_graph, electron_spots, electrons_to_add,
-                   locs_sort, bitarray_to_reallocs)
 
 
 def _ga_calc_energy(G, a, locs):
@@ -112,12 +112,11 @@ class GeneticAlogrithm(BondOrderAssignment):
                     self.unique_slots[i].add(j)  
                 elif j > i:
                     break
-        
-        
+
     def run(self):
         self.start_time = perf_counter()
         self.initialise()
-        self.pool = Pool(processes=8)
+        self.pool = Pool(processes=NUM_PROCESSES)
         if comb(len(self.locs), self.target) < BRUTEFORCE_CUTOFF:
             self._brute_force()
         else:
@@ -146,10 +145,9 @@ class GeneticAlogrithm(BondOrderAssignment):
                     break
         self.pool.terminate()
         opt = min(self.already_seen, key=lambda x:self.already_seen[x])
-        
-        return bitarray_to_reallocs(opt, self.locs), self.already_seen[opt]
-        
-            
+        bitarray_to_assignment(self.init_G, opt, self.locs)
+        return self.init_G, self.already_seen[opt]
+      
     def _killoff(self, pop):
         alive = {}
         while len(alive) < POP_SIZE:

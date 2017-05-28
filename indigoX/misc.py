@@ -1,14 +1,19 @@
 from abc import ABCMeta, abstractmethod
-from bitarray import bitarray
-from indigo.data import atom_enes, bond_enes, qbnd_enes, lp_prob, bo_prob
-from indigo.config import (INFINITY, RUN_QBND, BASIS_LEVEL, HYPERVALENT, ELECTRON_PAIRS, HYPERPENALTY, 
-                           PREFILL_LOCATIONS, COUNTERPOISE_CORRECTED)
-from indigo.periodictable import PeriodicTable as PT
-from indigo.exception import IndigoUnfeasibleComputation
+import logging
 from random import randrange
-import networkx as nx
-import logging.handlers
 import sys
+
+from bitarray import bitarray
+
+from indigoX.config import (INFINITY, RUN_QBND, BASIS_LEVEL, ALLOW_HYPERVALENT,
+                            ELECTRON_PAIRS, HYPERPENALTY, PREFILL_LOCATIONS,
+                            COUNTERPOISE_CORRECTED)
+from indigoX.data import atom_enes, bond_enes, qbnd_enes, lp_prob, bo_prob
+from indigoX.exception import IndigoUnfeasibleComputation
+from indigoX.periodictable import PeriodicTable as PT
+import networkx as nx
+import openbabel as ob
+
 
 BSSE = int(not COUNTERPOISE_CORRECTED)
 
@@ -26,7 +31,8 @@ def node_energy(G, n):
             pass
         if HYPERPENALTY:
             val = es + sum(G.node[x]['e-'] for x in G.neighbors(n))
-            octet = PT[e].hyper if HYPERVALENT and G.degree(n) > 2 else PT[e].octet
+            octet = (PT[e].hyper if ALLOW_HYPERVALENT and G.degree(n) > 2 
+                     else PT[e].octet)
             if val > octet:
                 ene = INFINITY
 
@@ -108,7 +114,7 @@ def electron_spots(G):
     # Determines the places where electrons can be placed.
     spots = []
     for n, d in G.nodes(True):
-        if HYPERVALENT and G.degree(n) > 2:
+        if ALLOW_HYPERVALENT and G.degree(n) > 2:
             octet = PT[d['element']].hyper
         else:
             octet = PT[d['element']].octet
@@ -129,11 +135,11 @@ def electron_spots(G):
                 missing_e -= 1
     for a, b in G.edges():
         a, b = sorted((a, b))
-        if HYPERVALENT and G.degree(a) > 2:
+        if ALLOW_HYPERVALENT and G.degree(a) > 2:
             a_octet = PT[G.node[a]['element']].hyper
         else:
             a_octet = PT[G.node[a]['element']].octet
-        if HYPERVALENT and G.degree(b) > 2:
+        if ALLOW_HYPERVALENT and G.degree(b) > 2:
             b_octet = PT[G.node[b]['element']].hyper
         else:
             b_octet = PT[G.node[b]['element']].octet
@@ -237,6 +243,20 @@ def bitarray_to_reallocs(a, locs):
             r_locs.append(locs[i])
     return sorted(r_locs)
 
+def bitarray_to_assignment(G, barry, locs):
+    locs = bitarray_to_reallocs(barry, locs)
+    
+    H = graph_to_dist_graph(G)
+    e_per_count = 2 if ELECTRON_PAIRS else 1
+    for i in locs:
+        H.node[i]['e-'] += e_per_count
+    
+    for n in H:
+        if len(n) == 1:
+            G.node[n[0]]['formal_charge'] = formal_charge(H, n)
+        if len(n) == 2:
+            G[n[0]][n[1]]['order'] = H.node[n]['e-'] // 2
+
 def calculable_nodes(G, a, stop, locs, target):
     # Determines which nodes of a BOAssign graph are calculable
     more_locs = locs[stop:]
@@ -269,6 +289,21 @@ def calculable_nodes(G, a, stop, locs, target):
                 calculable.append(n)
       
     return set(calculable)
+
+def obmol_to_graph(mol, total_charge):
+    name = str(mol.GetTitle()).strip()
+    G = nx.Graph(name=name, total_charge=total_charge)
+    for obAtom in ob.OBMolAtomIter(mol):
+        a = obAtom.GetIdx()
+        element = PT[obAtom.GetAtomicNum()].symbol
+        name = obAtom.GetTitle()
+        G.add_node(a, {'element': element, 'name': name})
+        
+    for obBond in ob.OBMolBondIter(mol):
+        a = obBond.GetBeginAtomIdx()
+        b = obBond.GetEndAtomIdx()
+        G.add_edge(a, b)
+    return G
 
 def random_string(length=4, chars="ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890"):
     return ''.join(chars[randrange(0,len(chars))] for _ in range(length))
