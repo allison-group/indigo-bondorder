@@ -91,3 +91,6 @@ ENV/
 # Eclipse project things
 .project
 .pydevproject
+
+# Local files
+config.py
