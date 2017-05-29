@@ -3,13 +3,13 @@ from itertools import count as _count
 from itertools import product
 from time import perf_counter
 
-from indigoX.config import (INFINITY, BASIS_LEVEL, TIMEOUT, HEURISTIC,
+from indigox.config import (INFINITY, BASIS_LEVEL, TIMEOUT, HEURISTIC,
                            COUNTERPOISE_CORRECTED, ELECTRON_PAIRS,
                            INITIAL_LO_ENERGY)
-from indigoX.data import atom_enes, bond_enes
-from indigoX.exception import IndigoMissingParameters
-from indigoX.lopt import LocalOptimisation
-from indigoX.misc import (graph_to_dist_graph, electron_spots, electrons_to_add,
+from indigox.data import atom_enes, bond_enes
+from indigox.exception import IndigoMissingParameters
+from indigox.lopt import LocalOptimisation
+from indigox.misc import (graph_to_dist_graph, electron_spots, electrons_to_add,
                          locs_sort, BondOrderAssignment, graph_setup, HashBitArray,
                          node_energy, bitarray_to_assignment, calculable_nodes)
 

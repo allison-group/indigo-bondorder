@@ -1,4 +1,4 @@
-from indigoX.exception import IndigoSearchError
+from indigox.exception import IndigoSearchError
 
 class _Element(object):
     def __init__(self, name, symbol, group, period, number, mass, atomic_radii,

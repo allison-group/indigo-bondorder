@@ -5,15 +5,15 @@ from itertools import product
 import os
 from subprocess import TimeoutExpired
 
-from indigoX.config import (JAVA_PATH, LIBTW_PATH, WORK_DIR, INFINITY, 
+from indigox.config import (JAVA_PATH, LIBTW_PATH, WORK_DIR, INFINITY, 
                             ELECTRON_PAIRS, ALLOW_HYPERVALENT, HYPERPENALTY, 
                             BASIS_LEVEL, RUN_QBND, COUNTERPOISE_CORRECTED, 
                             TD_TIMEOUT, ALLOW_FALLBACK, MAX_TREEWIDTH)
-from indigoX.data import atom_enes, bond_enes, qbnd_enes
-from indigoX.exception import IndigoExternalProgramError, IndigoUnfeasibleComputation
-from indigoX.misc import (BondOrderAssignment, graph_to_dist_graph, electron_spots, electrons_to_add,
+from indigox.data import atom_enes, bond_enes, qbnd_enes
+from indigox.exception import IndigoExternalProgramError, IndigoUnfeasibleComputation
+from indigox.misc import (BondOrderAssignment, graph_to_dist_graph, electron_spots, electrons_to_add,
                           locs_sort, formal_charge, random_string)
-from indigoX.periodictable import PeriodicTable as PT
+from indigox.periodictable import PeriodicTable as PT
 import networkx as nx
 import subprocess as sp
 
@@ -290,6 +290,7 @@ class FPT(BondOrderAssignment):
  
         td_args = [str(JAVA_PATH), '-jar', 'libtw.jar', 
                    'nl.uu.cs.treewidth.TDPrint', 'QuickBB', str(in_file)]
+        self.log.warning('Running system call: {}'.format(' '.join(td_args)))
         TD_process = sp.Popen(td_args, stdout=sp.PIPE, cwd=str(LIBTW_PATH))
         try:
             td_str, _ = TD_process.communicate(timeout=TD_TIMEOUT)

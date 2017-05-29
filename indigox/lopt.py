@@ -1,9 +1,9 @@
 from multiprocessing import Pool
 
-from indigoX.config import INIT_WITH_GA, NUM_PROCESSES
-from indigoX.exception import IndigoUnfeasibleComputation
+from indigox.config import INIT_WITH_GA, NUM_PROCESSES
+from indigox.exception import IndigoUnfeasibleComputation
 
-from indigoX.misc import (BondOrderAssignment, graph_to_dist_graph, electron_spots,
+from indigox.misc import (BondOrderAssignment, graph_to_dist_graph, electron_spots,
                    electrons_to_add, locs_sort, HashBitArray, graph_setup,
                    node_energy, bitarray_to_assignment)
 

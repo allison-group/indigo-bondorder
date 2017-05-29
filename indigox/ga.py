@@ -4,16 +4,16 @@ from multiprocessing import Pool
 from random import choice, random, sample
 from time import perf_counter
 
-from scipy.misc import comb
-
-from indigoX.config import (ELECTRON_PAIRS, MUTATE_PROB, MIN_GENERATIONS,
+from indigox.config import (ELECTRON_PAIRS, MUTATE_PROB, MIN_GENERATIONS,
                             MAX_GENERATIONS, BRUTEFORCE_CUTOFF, CONVERGENCE,
                             POP_SIZE, ELITEISM_SIZE, BREEDING_ELITEISM,
                             SEED_COUNT, TIMEOUT, NUM_PROCESSES)
-from indigoX.misc import (formal_charge, node_energy, HashBitArray,
+from indigox.misc import (formal_charge, node_energy, HashBitArray,
                           BondOrderAssignment, graph_to_dist_graph,
                           electron_spots, electrons_to_add, locs_sort,
                           bitarray_to_assignment)
+from scipy.misc import comb
+
 import numpy as np
 
 
@@ -192,6 +192,7 @@ class GeneticAlogrithm(BondOrderAssignment):
         return seletions
     
     def _brute_force(self):
+        self.log.warning('Running GeneticAlgoritm with brute force')
         results = self.pool.imap_unordered(_ga_brute_force,
                                 ((self.G, x, self.locs) for x in combinations(range(len(self.locs)), self.target)))
         for a, ene in results:

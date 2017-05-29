@@ -1,8 +1,9 @@
 from copy import deepcopy
 
+from indigox.config import BALL_DATA_FILE, INFINITY, MAX_SOLUTIONS
+from indigox.misc import BondOrderAssignment, graph_to_dist_graph, node_energy
+
 import BALLCore as BALL
-from indigoX.config import SOURCE_DIR, INFINITY, MAX_SOLUTIONS
-from indigoX.misc import BondOrderAssignment, graph_to_dist_graph, node_energy
 
 
 BALL_ELEMENTS = dict(
@@ -59,7 +60,7 @@ bop.options.setReal(opts.BOND_LENGTH_WEIGHTING, 0)
 bop.options.setInteger(opts.MAX_NUMBER_OF_SOLUTIONS, MAX_SOLUTIONS)
 bop.options.setBool(opts.COMPUTE_ALSO_NON_OPTIMAL_SOLUTIONS, False)
 bop.options.setBool(opts.ADD_HYDROGENS, False)
-bop.options.set(opts.INIFile, str(SOURCE_DIR / 'data' / 'OriginalBO.xml'))
+bop.options.set(opts.INIFile, str(BALL_DATA_FILE))
 
 class BallOpt(BondOrderAssignment):
     def __init__(self, G):
@@ -77,10 +78,6 @@ class BallOpt(BondOrderAssignment):
             atom = BALL.Atom()
             atom.setName(str(a))
             atom.setElement(ball_e)
-            if self.fc:
-                atom.setFormalCharge(d['fc'])
-            else:
-                atom.setFormalCharge(0)
             self.atoms[a] = atom
             
         for a, b, d in self.init_G.edges(data=True):

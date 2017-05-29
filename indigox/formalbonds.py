@@ -1,24 +1,23 @@
-from indigoX.astar import AStar
-from indigoX.config import SUPPORTED_ELEMENTS, BALL_AVAILABLE
-from indigoX.exception import (IndigoUnfeasibleComputation,
+from indigox.astar import AStar
+from indigox.config import SUPPORTED_ELEMENTS, BALL_AVAILABLE
+from indigox.exception import (IndigoUnfeasibleComputation,
                                IndigoMissingParameters)
-from indigoX.fpt import FPT
-from indigoX.ga import GeneticAlogrithm
-from indigoX.lopt import LocalOptimisation
-from indigoX.misc import obmol_to_graph, _get_logger
-from indigoX.periodictable import PeriodicTable as PT
+from indigox.fpt import FPT
+from indigox.ga import GeneticAlogrithm
+from indigox.lopt import LocalOptimisation
+from indigox.misc import obmol_to_graph, BondOrderAssignment
+from indigox.periodictable import PeriodicTable as PT
 import openbabel as ob
 if BALL_AVAILABLE:
-    from indigoX.ball import BallOpt
+    from indigox.ball import BallOpt
 
 
 
-class FormalBondOrders(object):
-    log = _get_logger()
+class FormalBondOrders(BondOrderAssignment):
     
-    def __init__(self, obMol, method='fpt', total_charge=0):
+    def __init__(self, obMol, method, total_charge):
         self.sys = obMol
-        self.G = obmol_to_graph(obMol)
+        self.G = obmol_to_graph(obMol, total_charge)
         self.method = method.lower()
         all_e = set(self.G.node[n]['element'] for n in self.G)
         if not all_e.issubset(SUPPORTED_ELEMENTS):
@@ -41,7 +40,10 @@ class FormalBondOrders(object):
             b = bond.GetEndAtomIdx()
             assignment[a][b]['aromatic'] = bond.IsAromatic()
     
-    def optimise(self):
+    def initialise(self):
+        pass
+    
+    def run(self):
         if self.method in ['fpt','dynamic']:
             processor = FPT(self.G)
         elif self.method in ['lo','local']:
@@ -67,7 +69,7 @@ class FormalBondOrders(object):
             
     
     @classmethod
-    def determine_bond_orders(cls, system, method='fpt'):
-        return cls(system, method).optimise()
+    def determine_bond_orders(cls, system, method='fpt', total_charge=0):
+        return cls(system, method, total_charge).run()
         
     

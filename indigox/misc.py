@@ -5,12 +5,12 @@ import sys
 
 from bitarray import bitarray
 
-from indigoX.config import (INFINITY, RUN_QBND, BASIS_LEVEL, ALLOW_HYPERVALENT,
+from indigox.config import (INFINITY, RUN_QBND, BASIS_LEVEL, ALLOW_HYPERVALENT,
                             ELECTRON_PAIRS, HYPERPENALTY, PREFILL_LOCATIONS,
                             COUNTERPOISE_CORRECTED)
-from indigoX.data import atom_enes, bond_enes, qbnd_enes, lp_prob, bo_prob
-from indigoX.exception import IndigoUnfeasibleComputation
-from indigoX.periodictable import PeriodicTable as PT
+from indigox.data import atom_enes, bond_enes, qbnd_enes, lp_prob, bo_prob
+from indigox.exception import IndigoUnfeasibleComputation
+from indigox.periodictable import PeriodicTable as PT
 import networkx as nx
 import openbabel as ob
 
