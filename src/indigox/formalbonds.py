@@ -1,5 +1,5 @@
 from indigox.astar import AStar
-from indigox.config import SUPPORTED_ELEMENTS, BALL_AVAILABLE
+from indigox.config import SUPPORTED_ELEMENTS, BALL_AVAILABLE, DEFAULT_METHOD
 from indigox.exception import (IndigoUnfeasibleComputation,
                                IndigoMissingParameters)
 from indigox.fpt import FPT
@@ -79,7 +79,7 @@ class FormalBondOrders(BondOrderAssignment):
             
     
     @classmethod
-    def determine_bond_orders(cls, system, method='fpt', total_charge=0):
+    def determine_bond_orders(cls, system, method=DEFAULT_METHOD, total_charge=0):
         return cls(system, method, total_charge).run()
         
     
