@@ -1,7 +1,9 @@
+import warnings
+
 from indigox.astar import AStar
 from indigox.config import SUPPORTED_ELEMENTS, BALL_AVAILABLE, DEFAULT_METHOD
 from indigox.exception import (IndigoUnfeasibleComputation,
-                               IndigoMissingParameters)
+                               IndigoMissingParameters, IndigoWarning)
 from indigox.fpt import FPT
 from indigox.ga import GeneticAlogrithm
 from indigox.lopt import LocalOptimisation
@@ -32,6 +34,10 @@ class FormalBondOrders(BondOrderAssignment):
             raise IndigoUnfeasibleComputation('Cannot calculate bond orders and '
                                               'formal charges with {} elements'
                                         ''.format(all_e - SUPPORTED_ELEMENTS))
+        if DEFAULT_METHOD not in ['fpt','a*']:
+            warnings.warn("Default optimisation method is not exact or does "
+                          "not optimsed formal charges and bond orders.",
+                          IndigoWarning)
         
             
                           
