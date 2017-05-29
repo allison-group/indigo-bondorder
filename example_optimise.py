@@ -3,6 +3,7 @@ from indigox.formalbonds import FormalBondOrders
 
 import openbabel as ob
 
+
 def build_mol(molecule='benzene'):
     if molecule == 'benzene':
         molecule = {'atoms':[(1,6),(2,6),(3,6),(4,6),(5,6),(6,6),
@@ -19,6 +20,7 @@ def build_mol(molecule='benzene'):
         charge = -1
     else:
         raise IndigoMissingFunctionality('Unknown molecule: {}'.format(molecule))
+    
     
     mol = ob.OBMol()
     for idx, z in molecule['atoms']:
@@ -50,7 +52,7 @@ def main():
     for mol in ['benzene','diacid-diol']:
         test_mol, charge = build_mol(mol)
         print('Optimisting {}'.format(mol))
-        for method in ['fpt','lo','a*','ga','ball']:
+        for method in ['fpt','lo','a*','ga']:
             opt_bofc = FormalBondOrders.determine_bond_orders(test_mol, method, charge)
             print_optimised(opt_bofc)
             print('\n')
