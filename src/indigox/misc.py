@@ -15,6 +15,7 @@ import networkx as nx
 import openbabel as ob
 
 
+
 BSSE = int(not COUNTERPOISE_CORRECTED)
 
 def node_energy(G, n):

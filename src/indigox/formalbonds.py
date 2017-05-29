@@ -10,6 +10,8 @@ from indigox.periodictable import PeriodicTable as PT
 from networkx import is_connected
 
 import openbabel as ob
+
+
 if BALL_AVAILABLE:
     from indigox.ball import BallOpt
 
