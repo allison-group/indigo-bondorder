@@ -26,7 +26,8 @@ class FPT(BondOrderAssignment):
     def __init__(self, G):
         self.init_G = G
         self.workdir = WORK_DIR / "BondOrderAssignment"
-        self.workdir.mkdir(parents=True, exist_ok=True)
+        if not self.workdir.exists():
+            self.workdir.mkdir(parents=True)
         self.max_vert = 0, None, 0
         self.best_root = 0
         self.current_root = 0
