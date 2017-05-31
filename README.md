@@ -1,16 +1,25 @@
 # indigo-bondorder
 
-Bondorder and formal charge determination for molecules
+Bondorder and formal charge determination for molecules.
 
-# Requirements
+## Requirements
 Python >= 3.4
+
+Java Runtime Environment
+### Python packages
 Numpy
+
 Scipy
+
 NetworkX
+
 bitarray
+
 OpenBabel (with python bindings)
 
-# Installation
+## Installation
 Its probably best to ensure that Numpy, Scipy and to a lesser extent, openbabel are already installed.
+
 Run:
+
 python3 setup.py install
