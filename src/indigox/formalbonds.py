@@ -1,7 +1,10 @@
 import warnings
 
+from networkx import is_connected
+
 from indigox.astar import AStar
-from indigox.config import SUPPORTED_ELEMENTS, BALL_AVAILABLE, DEFAULT_METHOD
+from indigox.ball import BallOpt
+from indigox.config import SUPPORTED_ELEMENTS, DEFAULT_METHOD
 from indigox.exception import (IndigoUnfeasibleComputation,
                                IndigoMissingParameters, IndigoWarning)
 from indigox.fpt import FPT
@@ -9,14 +12,7 @@ from indigox.ga import GeneticAlogrithm
 from indigox.lopt import LocalOptimisation
 from indigox.misc import obmol_to_graph, BondOrderAssignment
 from indigox.periodictable import PeriodicTable as PT
-from networkx import is_connected
-
 import openbabel as ob
-
-
-if BALL_AVAILABLE:
-    from indigox.ball import BallOpt
-
 
 
 class FormalBondOrders(BondOrderAssignment):
@@ -68,12 +64,8 @@ class FormalBondOrders(BondOrderAssignment):
             processor = AStar(self.G)
         elif self.method in ['ga','genetic']:
             processor = GeneticAlogrithm(self.G)
-        elif BALL_AVAILABLE and self.method == 'ball':
+        elif self.method == 'ball':
             processor = BallOpt(self.G)
-            self.log.warning("BALL method selected. Formal charges will not be "
-                             "optimised.")
-        elif not BALL_AVAILABLE and self.method == 'ball':
-            raise IndigoUnfeasibleComputation('The BALL library cannot be loaded.')
         else:
             raise IndigoMissingParameters('Unknown optimisation method: {}'
                                           ''.format(self.method))
