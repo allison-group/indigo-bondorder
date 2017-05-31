@@ -5,10 +5,11 @@ from itertools import product
 import os
 from subprocess import TimeoutExpired
 
-from indigox.config import (JAVA_PATH, LIBTW_PATH, WORK_DIR, INFINITY, 
-                            ELECTRON_PAIRS, ALLOW_HYPERVALENT, HYPERPENALTY, 
-                            BASIS_LEVEL, RUN_QBND, COUNTERPOISE_CORRECTED, 
-                            TD_TIMEOUT, ALLOW_FALLBACK, MAX_TREEWIDTH)
+from indigox.config import (JAVA_PATH, LIBTW_PATH, WORK_DIR, INFINITY,
+                            ELECTRON_PAIRS, ALLOW_HYPERVALENT, HYPERPENALTY,
+                            BASIS_LEVEL, RUN_QBND, COUNTERPOISE_CORRECTED,
+                            TD_TIMEOUT, ALLOW_FALLBACK, MAX_TREEWIDTH,
+                            JAVA_WORKS)
 from indigox.data import atom_enes, bond_enes, qbnd_enes
 from indigox.exception import IndigoExternalProgramError, IndigoUnfeasibleComputation
 from indigox.misc import (BondOrderAssignment, graph_to_dist_graph, electron_spots, electrons_to_add,
@@ -45,6 +46,14 @@ class FPT(BondOrderAssignment):
             self.choices[i] = self.choices[i][1]
 
     def run(self):
+        if not JAVA_WORKS:
+            self.log.warning('FPT method is unavailable as java was unable to '
+                             'be executed.')
+            for x in self.init_G:
+                self.init_G.node[x]['formal_charge'] = 0
+                for y in self.init_G[x]:
+                    self.init_G[x][y]['order'] = 1
+            return self.init_G, INFINITY
         self.initialise()
         self.tree_decomposition()
         self.nice_tree_decomposition()
