@@ -52,7 +52,7 @@ def main():
     for mol in ['benzene','diacid-diol']:
         test_mol, charge = build_mol(mol)
         print('Optimisting {}'.format(mol))
-        for method in ['fpt','lo','a*','ga']:
+        for method in ['fpt','lo','a*','ga','ball']:
             opt_bofc = FormalBondOrders.determine_bond_orders(test_mol, method, charge)
             print_optimised(opt_bofc)
             print('\n')
