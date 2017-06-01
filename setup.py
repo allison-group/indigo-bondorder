@@ -10,7 +10,7 @@ from setuptools.command.install import install as _install
 if sys.version_info[:2] < (3,4):
     raise RuntimeError("Python version >= 3.4 required.")
 
-version = "0.1"
+version = "0.1.0"
 
 class install(_install):
     def run(self):
