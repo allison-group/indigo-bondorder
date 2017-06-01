@@ -46,7 +46,7 @@ Optimised energy was {energy:.5f} hartrees.
 def main():
     cl_parser = argparse.ArgumentParser(
         description='Determine bond orders and formal charges of molecules.')
-    cl_parser.add_argument('file', type=Path, nargs='?',
+    cl_parser.add_argument('file', type=Path,
                            help='molecule structure file to optimise')
     cl_parser.add_argument('-i', '--input', nargs='?', default='pdb', type=str,
                            help='format of the input files')
