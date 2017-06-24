@@ -9,7 +9,7 @@ import openbabel as ob
 
 def print_optimised(G):
     methods = {'fpt':'Fixed Parameter Optimisation',
-               'dynamic':'Fixed Patameter Optimisation',
+               'dynamic':'Fixed Parameter Optimisation',
                'lo':'Local Minimisation',
                'local':'Local Minimisation',
                'a*':'A* search',
