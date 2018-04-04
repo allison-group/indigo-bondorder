@@ -56,7 +56,9 @@ class AStar(BondOrderAssignment):
         
         source = HashBitArray(len(self.locs))
         source.setall(False)
-        
+        i_count = 0        
+        explored_count = 0;
+        enqueued_count = 0;
         start = 0
         try:
             stop = self.choices[0]
@@ -71,38 +73,46 @@ class AStar(BondOrderAssignment):
         explored = {}
         while q:
             qcost, _, curvert, start, stop, child, dist, parent = pop(q)
-            
+            i_count += 1
+            if i_count < 20:
+                print(curvert, start, stop)
+#            print(curvert[0])
             if stop >= len(self.locs) and curvert[0].count() == self.target:
                 bitarray_to_assignment(self.init_G, curvert[0], self.locs)
+                print(i_count + len(q), "items passed through queue")
+                print("Explored:", explored_count, "Enqueued:", enqueued_count)
+                print("{:.3f} seconds run time".format(perf_counter()-self.start_time))
                 return self.init_G, dist
                 
-            if curvert in explored:
-                continue
+#           if curvert in explored:
+#               explored_explored += 1
+#               continue
             
-            explored[curvert] = parent
+#           explored[curvert] = parent
             
             for n in self.neighbours(curvert[0], start, stop):
-                if perf_counter() - self.start_time > TIMEOUT:
-                    raise TimeoutError
-                
-                if n in explored:
-                    continue
+                if i_count < 20:
+                    print("     ",n)
+#               if n in explored:
+#                   explored_count += 1
+#                   continue
                 calculable = calculable_nodes(self.G, n[0], stop, self.locs, 
                                               self.target)
                 ncost = self.calc_energy(n[0], calculable, stop)
-                if n in enqueued:
-                    qcost, h = enqueued[n]
-                    if qcost <= ncost:
-                        continue
-                else:
-                    self.h_count += 1
-                    h = self.heuristic(self.G, n[0], calculable, stop,
+#               if n in enqueued:
+#                   enqueued_count += 1
+#                   qcost, h = enqueued[n]
+#                   if qcost <= ncost:
+#                       continue
+#               else:
+#                   self.h_count += 1
+                h = self.heuristic(self.G, n[0], calculable, stop,
                                        self.target, self.locs)
                     
                 if ncost + h > self.max_queue_energy:
                     continue
                     
-                enqueued[n] = ncost, h
+#               enqueued[n] = ncost, h
                 
                 try:
                     push(q, (ncost + h, next(c), n, stop, stop + self.choices[child],
@@ -110,6 +120,8 @@ class AStar(BondOrderAssignment):
                 except IndexError:
                     push(q, (ncost + h, next(c), n, stop, stop + 1,child, ncost, 
                              curvert))
+        print(i_count, "items passed through queue")
+        print("{:.3f} seconds run time".format(perf_counter()-self.start_time))
   
     def neighbours(self, a, start, stop):
         num = stop - start

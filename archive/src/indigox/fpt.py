@@ -245,7 +245,7 @@ class FPT(BondOrderAssignment):
                     continue
                 i_bag = p_bag.intersection(c_bag)
                 i_idx = next(c)
-                self.NTD.add_node(i_idx, {'bag':i_bag})
+                self.NTD.add_node(i_idx, **{'bag':i_bag})
                 self.NTD.remove_edge(parent, child)
                 self.NTD.add_edge(parent, i_idx)
                 self.NTD.add_edge(i_idx, child)
@@ -265,7 +265,7 @@ class FPT(BondOrderAssignment):
                                        reverse=True).pop()
                         i_bag = c_bag.union({i_bag})
                         i_idx = next(c)
-                        self.NTD.add_node(i_idx, {'bag':i_bag})
+                        self.NTD.add_node(i_idx, **{'bag':i_bag})
                         self.NTD.remove_edge(parent, child)
                         self.NTD.add_edge(parent, i_idx)
                         self.NTD.add_edge(i_idx, child)
@@ -279,7 +279,7 @@ class FPT(BondOrderAssignment):
                                        reverse=True).pop()
                         f_bag = c_bag.difference({f_bag})
                         f_idx = next(c)
-                        self.NTD.add_node(f_idx, {'bag':f_bag})
+                        self.NTD.add_node(f_idx, **{'bag':f_bag})
                         self.NTD.remove_edge(parent, child)
                         self.NTD.add_edge(parent, f_idx)
                         self.NTD.add_edge(f_idx, child)
@@ -355,7 +355,7 @@ class FPT(BondOrderAssignment):
                         bag.add((a,))
                     else:
                         bag.add((a,b))
-                self.TD.add_node(idx, {'bag':bag})
+                self.TD.add_node(idx, **{'bag':bag})
                 if len(bag) - 1 > self.tree_width:
                     self.tree_width = len(bag) - 1
             elif in_e:
@@ -369,7 +369,7 @@ class FPT(BondOrderAssignment):
         for n in self.TD.nodes():
             if self.TD.degree(n) == 1 or self.TD.degree(n) == 0:
                 idx = next(c)
-                self.TD.add_node(idx, {'bag':set()})
+                self.TD.add_node(idx, **{'bag':set()})
                 self.TD.add_edge(n, idx)
                 self.possible_roots.append(idx)
         

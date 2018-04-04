@@ -88,14 +88,14 @@ def graph_to_dist_graph(G):
     # Convert the molecular graph to bond order assignment graph
     H = nx.Graph()
     for atom, dat in G.nodes(True):
-        H.add_node((atom,), {'Z': dat['element'],
+        H.add_node((atom,), **{'Z': dat['element'],
                              'e-': 0,
                              'valence': PT[dat['element']].valence,
                              'fc': 0,})
 
     for a, b, dat in G.edges(data=True):
         a, b = sorted((b, a))
-        H.add_node((a, b), {'e-': 2})
+        H.add_node((a, b), **{'e-': 2})
 
         H.add_edge((a,), (a, b))
         H.add_edge((a, b), (b,))
@@ -214,6 +214,7 @@ def locs_sort(locs, G):
             locs.remove(n)
             new_order.append(n) 
 
+    print(new_order[::-1])
     return new_order
 
 def graph_setup(G, a, locs):
@@ -292,13 +293,13 @@ def calculable_nodes(G, a, stop, locs, target):
     return set(calculable)
 
 def obmol_to_graph(mol, total_charge):
-    name = str(mol.GetTitle()).strip()
+    name = str(mol.GetData("COMPND")).strip()
     G = nx.Graph(name=name, total_charge=total_charge)
     for obAtom in ob.OBMolAtomIter(mol):
         a = obAtom.GetIdx()
         element = PT[obAtom.GetAtomicNum()].symbol
         name = obAtom.GetTitle()
-        G.add_node(a, {'element': element, 'name': name})
+        G.add_node(a, **{'element': element, 'name': name})
         
     for obBond in ob.OBMolBondIter(mol):
         a = obBond.GetBeginAtomIdx()
