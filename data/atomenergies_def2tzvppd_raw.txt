@@ -1,0 +1,75 @@
+atomEnergies_.emplace(33025,   50805);  // H  -1
+atomEnergies_.emplace(    1,   51069);  // H  +0
+atomEnergies_.emplace(  257,  101050);  // H  +1
+atomEnergies_.emplace(33798,  161629);  // C  -4
+atomEnergies_.emplace(33542,   99669);  // C  -3
+atomEnergies_.emplace(33286,   63711);  // C  -2
+atomEnergies_.emplace(33030,   42049);  // C  -1
+atomEnergies_.emplace(    6,   45684);  // C  +0
+atomEnergies_.emplace(  262,   86828);  // C  +1
+atomEnergies_.emplace(  518,  176047);  // C  +2
+atomEnergies_.emplace(  774,  351608);  // C  +3
+atomEnergies_.emplace( 1030,  588180);  // C  +4
+atomEnergies_.emplace(33543,  121922);  // N  -3
+atomEnergies_.emplace(33287,   71807);  // N  -2
+atomEnergies_.emplace(33031,   44359);  // N  -1
+atomEnergies_.emplace(    7,   41014);  // N  +0
+atomEnergies_.emplace(  263,   94194);  // N  +1
+atomEnergies_.emplace(  519,  202628);  // N  +2
+atomEnergies_.emplace(  775,  376430);  // N  +3
+atomEnergies_.emplace( 1031,  660559);  // N  +4
+atomEnergies_.emplace( 1287, 1019703);  // N  +5
+atomEnergies_.emplace(33288,   60466);  // O  -2
+atomEnergies_.emplace(33032,   38154);  // O  -1
+atomEnergies_.emplace(    8,   42837);  // O  +0
+atomEnergies_.emplace(  264,   92011);  // O  +1
+atomEnergies_.emplace(  520,  220817);  // O  +2
+atomEnergies_.emplace(  776,  422224);  // O  +3
+atomEnergies_.emplace( 1032,  705900);  // O  +4
+atomEnergies_.emplace( 1288, 1123662);  // O  +5
+atomEnergies_.emplace( 1544, 1630402);  // O  +6
+atomEnergies_.emplace(33033,   39135);  // F  -1
+atomEnergies_.emplace(    9,   51069);  // F  +0
+atomEnergies_.emplace(  265,  114299);  // F  +1
+atomEnergies_.emplace(  521,  241772);  // F  +2
+atomEnergies_.emplace(  777,  471955);  // F  +3
+atomEnergies_.emplace( 1033,  791713);  // F  +4
+atomEnergies_.emplace( 1289, 1210482);  // F  +5
+atomEnergies_.emplace( 1545, 1786949);  // F  +6
+atomEnergies_.emplace( 1801, 2466315);  // F  +7
+atomEnergies_.emplace(33551,   98767);  // P  -3
+atomEnergies_.emplace(33295,   62927);  // P  -2
+atomEnergies_.emplace(33039,   43702);  // P  -1
+atomEnergies_.emplace(   15,   44674);  // P  +0
+atomEnergies_.emplace(  271,   83102);  // P  +1
+atomEnergies_.emplace(  527,  155466);  // P  +2
+atomEnergies_.emplace(  783,  265903);  // P  +3
+atomEnergies_.emplace( 1039,  454215);  // P  +4
+atomEnergies_.emplace( 1295,  692151);  // P  +5
+atomEnergies_.emplace(33296,   53539);  // S  -2
+atomEnergies_.emplace(33040,   39061);  // S  -1
+atomEnergies_.emplace(   16,   45989);  // S  +0
+atomEnergies_.emplace(  272,   83169);  // S  +1
+atomEnergies_.emplace(  528,  168829);  // S  +2
+atomEnergies_.emplace(  784,  296428);  // S  +3
+atomEnergies_.emplace( 1040,  469713);  // S  +4
+atomEnergies_.emplace( 1296,  735444);  // S  +5
+atomEnergies_.emplace( 1552, 1057598);  // S  +6
+atomEnergies_.emplace(33041,   38407);  // Cl -1
+atomEnergies_.emplace(   17,   51069);  // Cl +0
+atomEnergies_.emplace(  273,   97871);  // Cl +1
+atomEnergies_.emplace(  529,  184237);  // Cl +2
+atomEnergies_.emplace(  785,  329677);  // Cl +3
+atomEnergies_.emplace( 1041,  524613);  // Cl +4
+atomEnergies_.emplace( 1297,  772538);  // Cl +5
+atomEnergies_.emplace( 1553, 1127194);  // Cl +6
+atomEnergies_.emplace( 1809, 1544933);  // Cl +7
+atomEnergies_.emplace(33059,   38806);  // Br -1
+atomEnergies_.emplace(   35,   51069);  // Br +0
+atomEnergies_.emplace(  291,   93794);  // Br +1
+atomEnergies_.emplace(  547,  171345);  // Br +2
+atomEnergies_.emplace(  803,  300496);  // Br +3
+atomEnergies_.emplace( 1059,  471862);  // Br +4
+atomEnergies_.emplace( 1315,  687883);  // Br +5
+atomEnergies_.emplace( 1571, 1002452);  // Br +6
+atomEnergies_.emplace( 1827, 1372136);  // Br +7

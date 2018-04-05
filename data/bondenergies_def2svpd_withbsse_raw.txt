@@ -1,0 +1,141 @@
+bondEnergies_.emplace(2098694, 36584); // C C 1
+bondEnergies_.emplace(4195846, 23979); // C C 2
+bondEnergies_.emplace(6292998, 11447); // C C 3
+bondEnergies_.emplace(2097414, 33924); // C H 1
+bondEnergies_.emplace(2098689, 33924);// H C 1
+bondEnergies_.emplace(2098950, 37598); // C N 1
+bondEnergies_.emplace(2098695, 37598);// N C 1
+bondEnergies_.emplace(4196102, 26840); // C N 2
+bondEnergies_.emplace(4195847, 26840);// N C 2
+bondEnergies_.emplace(6293254, 15477); // C N 3
+bondEnergies_.emplace(6292999, 15477);// N C 3
+bondEnergies_.emplace(2099206, 36722); // C O 1
+bondEnergies_.emplace(2098696, 36722);// O C 1
+bondEnergies_.emplace(4196358, 24070); // C O 2
+bondEnergies_.emplace(4195848, 24070);// O C 2
+bondEnergies_.emplace(2100998, 40411); // C P 1
+bondEnergies_.emplace(2098703, 40411);// P C 1
+bondEnergies_.emplace(4198150, 33381); // C P 2
+bondEnergies_.emplace(4195855, 33381);// P C 2
+bondEnergies_.emplace(6295302, 25374); // C P 3
+bondEnergies_.emplace(6293007, 25374);// P C 3
+bondEnergies_.emplace(2101254, 40236); // C S 1
+bondEnergies_.emplace(2098704, 40236);// S C 1
+bondEnergies_.emplace(4198406, 32267); // C S 2
+bondEnergies_.emplace(4195856, 32267);// S C 2
+bondEnergies_.emplace(2098945, 33676); // H N 1
+bondEnergies_.emplace(2097415, 33676);// N H 1
+bondEnergies_.emplace(2099201, 32190); // H O 1
+bondEnergies_.emplace(2097416, 32190);// O H 1
+bondEnergies_.emplace(2100993, 38111); // H P 1
+bondEnergies_.emplace(2097423, 38111);// P H 1
+bondEnergies_.emplace(2101249, 36978); // H S 1
+bondEnergies_.emplace(2097424, 36978);// S H 1
+bondEnergies_.emplace(2098951, 40846); // N N 1
+bondEnergies_.emplace(4196103, 32694); // N N 2
+bondEnergies_.emplace(6293255, 18533); // N N 3
+bondEnergies_.emplace(2099207, 41516); // N O 1
+bondEnergies_.emplace(2098952, 41516);// O N 1
+bondEnergies_.emplace(4196359, 34272); // N O 2
+bondEnergies_.emplace(4196104, 34272);// O N 2
+bondEnergies_.emplace(2100999, 40175); // N P 1
+bondEnergies_.emplace(2098959, 40175);// P N 1
+bondEnergies_.emplace(4198151, 36211); // N P 2
+bondEnergies_.emplace(4196111, 36211);// P N 2
+bondEnergies_.emplace(6295303, 32006); // N P 3
+bondEnergies_.emplace(6293263, 32006);// P N 3
+bondEnergies_.emplace(2101255, 41952); // N S 1
+bondEnergies_.emplace(2098960, 41952);// S N 1
+bondEnergies_.emplace(4198407, 38639); // N S 2
+bondEnergies_.emplace(4196112, 38639);// S N 2
+bondEnergies_.emplace(2099208, 44191); // O O 1
+bondEnergies_.emplace(4196360, 34480); // O O 2
+bondEnergies_.emplace(2101000, 38519); // O P 1
+bondEnergies_.emplace(2099215, 38519);// P O 1
+bondEnergies_.emplace(4198152, 32946); // O P 2
+bondEnergies_.emplace(4196367, 32946);// P O 2
+bondEnergies_.emplace(2101256, 41884); // O S 1
+bondEnergies_.emplace(2099216, 41884);// S O 1
+bondEnergies_.emplace(4198408, 35226); // O S 2
+bondEnergies_.emplace(4196368, 35226);// S O 2
+bondEnergies_.emplace(2101007, 43208); // P P 1
+bondEnergies_.emplace(4198159, 40098); // P P 2
+bondEnergies_.emplace(6295311, 36659); // P P 3
+bondEnergies_.emplace(2101263, 42300); // P S 1
+bondEnergies_.emplace(2101008, 42300);// S P 1
+bondEnergies_.emplace(4198415, 38889); // P S 2
+bondEnergies_.emplace(4198160, 38889);// S P 2
+bondEnergies_.emplace(2101264, 43277); // S S 1
+bondEnergies_.emplace(4198416, 38453); // S S 2
+bondEnergies_.emplace(2106147, 45271); // Br Br 1
+bondEnergies_.emplace(2101539, 44947); // Br Cl 1
+bondEnergies_.emplace(2106129, 44947);// Cl Br 1
+bondEnergies_.emplace(2099491, 43150); // Br F 1
+bondEnergies_.emplace(2106121, 43150);// F Br 1
+bondEnergies_.emplace(2097443, 37308); // Br H 1
+bondEnergies_.emplace(2106113, 37308);// H Br 1
+bondEnergies_.emplace(2098979, 43803); // Br N 1
+bondEnergies_.emplace(2106119, 43803);// N Br 1
+bondEnergies_.emplace(2099235, 44471); // Br O 1
+bondEnergies_.emplace(2106120, 44471);// O Br 1
+bondEnergies_.emplace(2101027, 42186); // Br P 1
+bondEnergies_.emplace(2106127, 42186);// P Br 1
+bondEnergies_.emplace(2101283, 44323); // Br S 1
+bondEnergies_.emplace(2106128, 44323);// S Br 1
+bondEnergies_.emplace(2098723, 40546); // Br C 1
+bondEnergies_.emplace(2106118, 40546);// C Br 1
+bondEnergies_.emplace(2101510, 39017); // C Cl 1
+bondEnergies_.emplace(2098705, 39017);// Cl C 1
+bondEnergies_.emplace(2099462, 34069); // C F 1
+bondEnergies_.emplace(2098697, 34069);// F C 1
+bondEnergies_.emplace(2101521, 45031); // Cl Cl 1
+bondEnergies_.emplace(2099473, 43746); // Cl F 1
+bondEnergies_.emplace(2101513, 43746);// F Cl 1
+bondEnergies_.emplace(2097425, 35410); // Cl H 1
+bondEnergies_.emplace(2101505, 35410);// H Cl 1
+bondEnergies_.emplace(2098961, 43087); // Cl N 1
+bondEnergies_.emplace(2101511, 43087);// N Cl 1
+bondEnergies_.emplace(2099217, 44415); // Cl O 1
+bondEnergies_.emplace(2101512, 44415);// O Cl 1
+bondEnergies_.emplace(2101009, 40792); // Cl P 1
+bondEnergies_.emplace(2101519, 40792);// P Cl 1
+bondEnergies_.emplace(2101265, 43586); // Cl S 1
+bondEnergies_.emplace(2101520, 43586);// S Cl 1
+bondEnergies_.emplace(2099465, 47001); // F F 1
+bondEnergies_.emplace(2097417, 29720); // F H 1
+bondEnergies_.emplace(2099457, 29720);// H F 1
+bondEnergies_.emplace(2098953, 40924); // F N 1
+bondEnergies_.emplace(2099463, 40924);// N F 1
+bondEnergies_.emplace(2099209, 44849); // F O 1
+bondEnergies_.emplace(2099464, 44849);// O F 1
+bondEnergies_.emplace(2101001, 35338); // F P 1
+bondEnergies_.emplace(2099471, 35338);// P F 1
+bondEnergies_.emplace(2101257, 40146); // F S 1
+bondEnergies_.emplace(2099472, 40146);// S F 1
+bondEnergies_.emplace(2097409, 34457); // H H 1
+bondEnergies_.emplace(2361094, 32886); // C N+ 1
+bondEnergies_.emplace(2164231, 32886);// N+ C 1
+bondEnergies_.emplace(4458246, 17134); // C N+ 2
+bondEnergies_.emplace(4261383, 17134);// N+ C 2
+bondEnergies_.emplace(6555398, 828); // C N+ 3
+bondEnergies_.emplace(6358535, 828);// N+ C 3
+bondEnergies_.emplace(2623494, 37458); // C O- 1
+bondEnergies_.emplace(2229768, 37458);// O- C 1
+bondEnergies_.emplace(2361089, 30728); // H N+ 1
+bondEnergies_.emplace(2162951, 30728);// N+ H 1
+bondEnergies_.emplace(2623489, 33711); // H O- 1
+bondEnergies_.emplace(2228488, 33711);// O- H 1
+bondEnergies_.emplace(2361095, 37530); // N N+ 1
+bondEnergies_.emplace(2164487, 37530);// N+ N 1
+bondEnergies_.emplace(4458247, 27191); // N N+ 2
+bondEnergies_.emplace(4261639, 27191);// N+ N 2
+bondEnergies_.emplace(6555399, 12561); // N N+ 3
+bondEnergies_.emplace(6358791, 12561);// N+ N 3
+bondEnergies_.emplace(2164743, 40177); // N+ O 1
+bondEnergies_.emplace(2361096, 40177);// O N+ 1
+bondEnergies_.emplace(4261895, 30973); // N+ O 2
+bondEnergies_.emplace(4458248, 30973);// O N+ 2
+bondEnergies_.emplace(2623495, 44961); // N O- 1
+bondEnergies_.emplace(2230024, 44961);// O- N 1
+bondEnergies_.emplace(2623496, 32273); // O O- 1
+bondEnergies_.emplace(2230280, 32273);// O- O 1

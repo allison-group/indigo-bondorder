@@ -1,0 +1,50 @@
+SET(MANIFEST "@CMAKE_BINARY_DIR@/install_manifest.txt")
+
+IF(EXISTS ${MANIFEST})
+    MESSAGE(STATUS "Uninstalling indigox")
+    SET(dirs)
+    FILE(STRINGS ${MANIFEST} files)
+    FOREACH(file ${files})
+        IF(EXISTS ${file})
+            MESSAGE(STATUS "Uninstalling ${file}")
+            EXECUTE_PROCESS(
+                COMMAND @CMAKE_COMMAND@ -E remove "${file}"
+                RESULT_VARIABLE rm_retval
+                OUTPUT_QUIET
+            )
+            IF(NOT "${rm_retval}" STREQUAL 0)
+                MESSAGE(FATAL_ERROR "Problem when removing ${file}")
+            ENDIF()
+        ELSE()
+            MESSAGE(STATUS "File ${file} does not exist.")
+        ENDIF()
+        GET_FILENAME_COMPONENT(dir ${file} DIRECTORY)
+        LIST(APPEND dirs ${dir})
+    ENDFOREACH(file)
+    LIST(APPEND dirs @CMAKE_INSTALL_FULL_INCLUDEDIR@ 
+                     @CMAKE_INSTALL_FULL_DATAROOTDIR@ 
+                     @CMAKE_INSTALL_FULL_LIBDIR@
+                     @CMAKE_INSTALL_PREFIX@)
+            
+    LIST(REMOVE_DUPLICATES dirs)
+    LIST(SORT dirs)
+    LIST(REVERSE dirs)
+    MESSAGE("${dirs}")
+    FOREACH(dir ${dirs})
+        IF(EXISTS ${dir})
+            MESSAGE(STATUS "Removing ${dir}")
+            EXECUTE_PROCESS(
+                COMMAND @CMAKE_COMMAND@ -E remove_directory "${dir}"
+                RESULT_VARIABLE rm_retval
+                OUTPUT_QUIET
+            )
+        ENDIF()
+    ENDFOREACH()
+    MESSAGE(STATUS "Finished uninstalling indigox.")
+
+ELSE()
+  MESSAGE(STATUS "Cannot find install manifest: '${MANIFEST}'")
+  MESSAGE(STATUS "Probably make install has not been performed")
+  MESSAGE(STATUS "   or install_manifest.txt has been deleted.")
+ENDIF()
+
