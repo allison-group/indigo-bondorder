@@ -32,7 +32,7 @@ namespace indigox {
       void GetAllItems(std::vector<String>&);
       
     private:
-      const String& path_;
+      const String path_;
       
     private:
       FileReader() = default;  // No default constructor
