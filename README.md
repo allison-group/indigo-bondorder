@@ -3,16 +3,17 @@
 Bondorder and formal charge determination for molecules.
 
 ## Requirements
-Python >= 3.4, Java Runtime Environment, OpenBabel (with python bindings)
-
-### Python packages
-numpy, scipy, networkX, bitarray
+CMake version >= 3.8 (An older version will probably work, you will just have to modify the minimum required version in CMakeLists.txt)
+C++14 compilent compiler. Tested with AppleClang >= 9.0, Clang >= 3.9, GCC >= 5.5
+[optional] Boost. The required libraries are provided from boost version 1.66.0
+[optional] Python >= 3.4
+[optional] Java runtime
+[optional] doxygen for building the (sparse) documentation
 
 ## Installation
-Its probably best to ensure that Numpy, Scipy and to a lesser extent, openbabel are already installed.
+mkdir build && cd build
+cmake .. && make
+make install
 
-Run:
+Examples are provided in the example directory.
 
-python3 setup.py install
-
-An example script for utilising this program is provided in examples/pdb_formalbonds.py
