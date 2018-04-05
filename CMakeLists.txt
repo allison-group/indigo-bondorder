@@ -1,6 +1,6 @@
-# Should figure out minimum needed at some point. 3.8 is rather high
-CMAKE_MINIMUM_REQUIRED(VERSION 3.8)
-CMAKE_POLICY(VERSION 3.8)
+# Should figure out minimum needed at some point. 3.5 is rather high
+CMAKE_MINIMUM_REQUIRED(VERSION 3.5)
+CMAKE_POLICY(VERSION 3.5)
 
 PROJECT(indigox VERSION 0.7.2.0)
 
