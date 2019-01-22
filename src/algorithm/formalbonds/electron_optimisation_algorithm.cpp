@@ -266,7 +266,8 @@ Score ElectronOptimisationAlgorithm::CalculateVertexEnergy(ElnVertex& vert) {
     
     if ((parent_->elnGraph_->Degree(vert) > 2
          && valence > prop->target_hyper_octet)
-        || valence > prop->target_octet){
+        || (parent_->elnGraph_->Degree(vert) <= 2
+            && valence > prop->target_octet)){
       return opt_::INF;
     }
     
@@ -296,7 +297,8 @@ Score ElectronOptimisationAlgorithm::CalculateVertexEnergy(ElnVertex& vert) {
     }
     if ((parent_->elnGraph_->Degree(u) > 2
          && valence_u > u_prop->target_hyper_octet)
-        || valence_u > u_prop->target_octet) {
+        || (parent_->elnGraph_->Degree(u) <= 2
+            && valence_u > u_prop->target_octet)) {
       return opt_::INF;
     }
     
@@ -308,7 +310,8 @@ Score ElectronOptimisationAlgorithm::CalculateVertexEnergy(ElnVertex& vert) {
     }
     if ((parent_->elnGraph_->Degree(v) > 2
          && valence_v > v_prop->target_hyper_octet)
-        || valence_v > v_prop->target_octet) {
+        || (parent_->elnGraph_->Degree(v) <= 2
+            && valence_v > v_prop->target_octet)) {
       return opt_::INF;
     }
     
