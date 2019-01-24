@@ -353,40 +353,28 @@ void AStarOptimisation::PromiscuousHeuristic(p_AStarQueueItem d) {
       ElnVertProp *p = vertexProperties_.at(vv);
       Score minene = opt_::INF;
       if (p->id.first == p->id.second) {  // Atom energies
-        uint16_t atomic = p->atomic_number;
-        
-        for (uint8_t fc = 0; fc < 10; ++fc) {
-          uint16_t mask = atomic + (fc << 8);
-          if (parent_->scores_.find(mask) != parent_->scores_.end()) {
-            Score e = parent_->scores_.at(mask);
-            if (e < minene) minene = e;
-          }
-          
-          mask += (1 << 15);
-          if (parent_->scores_.find(mask) != parent_->scores_.end()) {
-            Score e = parent_->scores_.at(mask);
-            if (e < minene) minene = e;
+        for (AtomScoring& test : parent_->scores_.atom_scores) {
+          if (test.Matches(parent_->elnGraph_, vv)) {
+            for (auto& fc_val : test.scoring) {
+              if (fc_val.second < minene) minene = fc_val.second;
+            }
           }
         }
+        
       } else {  // Bond energies
         ElnNeighboursIter nbr = parent_->elnGraph_->GetNeighbours(vv).first;
-        ElnVertProp *a = vertexProperties_.at(*nbr);
+        ElnVertex a = *nbr;
         ++nbr;
-        ElnVertProp *b = vertexProperties_.at(*nbr);
-        uint32_t mask_root = a->atomic_number + (b->atomic_number << 8);
-        for (uint32_t a_charge = 0; a_charge < 3; ++a_charge) {
-          for (uint32_t b_charge = 0; b_charge < 3; ++b_charge) {
-            for (uint32_t bond_e = 1; bond_e < 9; ++bond_e) {
-              uint32_t mask = mask_root + (a_charge << 16) + (b_charge << 18) + (bond_e << 20);
-              if (parent_->scores_.find(mask) != parent_->scores_.end()) {
-                Score e = parent_->scores_.at(mask);
-                if (e < minene) minene = e;
-              }
+        ElnVertex b = *nbr;
+        
+        for (BondScoring& test : parent_->scores_.bond_scores) {
+          if (test.Matches(parent_->elnGraph_, vv)) {
+            for (auto& order_val : test.scoring) {
+              if (order_val.second < minene) minene = order_val.second;
             }
           }
         }
       }
-      
       
       if (minene != opt_::INF)
         h_cost += minene;
@@ -462,13 +450,14 @@ void AStarOptimisation::AbstemiousHeuristic(p_AStarQueueItem d) {
         
         // Determine minimum energy I can attain
         Score localMin = opt_::INF;
-        uint16_t maskBase = p->atomic_number;
         for (int8_t fc : attainable) {
-          uint32_t mask = maskBase + (abs(fc) << 8);
-          if (fc < 0) mask += (1 << 15);
-          if (parent_->scores_.find(mask) != parent_->scores_.end()
-              && parent_->scores_.at(mask) < localMin)
-            localMin = parent_->scores_.at(mask);
+          /// \todo change to finding valance, not formal charge
+          for (AtomScoring& test : parent_->scores_.atom_scores) {
+            if (!test.Matches(parent_->elnGraph_, vv)) continue;
+            auto pos = test.scoring.find(fc);
+            if (pos == test.scoring.end()) continue;
+            if (pos->second < localMin) localMin = pos->second;
+          }
         }
         
         if (localMin == opt_::INF) {
@@ -488,8 +477,10 @@ void AStarOptimisation::AbstemiousHeuristic(p_AStarQueueItem d) {
         
         ElnNeighboursIter nbr = parent_->elnGraph_->GetNeighbours(vv).first;
         ElnVertProp* pa = vertexProperties_[*nbr];
+        ElnVertex a = *nbr;
         nbr++;
         ElnVertProp* pb = vertexProperties_[*nbr];
+        ElnVertex b = *nbr;
         uint32_t maskBase = pa->atomic_number + (pb->atomic_number << 8);
         if (opt_::USE_CHARGED_BOND_ENERGIES){
           if (pa->formal_charge < 0)
@@ -512,14 +503,12 @@ void AStarOptimisation::AbstemiousHeuristic(p_AStarQueueItem d) {
           toPlace += toPlace;
         
         for (uint8_t es = 0; es <= toPlace; es += 2) {
-          uint32_t mask = maskBase + ((p->electron_count + p->pre_placed + es) << 20);
-          if (parent_->scores_.find(mask) != parent_->scores_.end()
-              && parent_->scores_.at(mask) < localMin)
-            localMin = parent_->scores_.at(mask);
-          else if (opt_::USE_CHARGED_BOND_ENERGIES &&
-                   parent_->scores_.find(mask & eneBitmask_) != parent_->scores_.end()
-                   && parent_->scores_.at(mask & eneBitmask_) < localMin)
-            localMin = parent_->scores_.at(mask & eneBitmask_);
+          for (BondScoring& test : parent_->scores_.bond_scores) {
+            if (!test.Matches(parent_->elnGraph_, vv)) continue;
+            auto pos = test.scoring.find(p->electron_count + p->pre_placed + es);
+            if (pos == test.scoring.end()) continue;
+            if (pos->second < localMin) localMin = pos->second;
+          }
         }
         
         if (localMin == opt_::INF) {

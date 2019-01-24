@@ -33,6 +33,7 @@ void indigox::GenerateOptions(py::module& m) {
   .def_readwrite_static("ALGORITHM", &e_::ALGORITHM)
   .def_readwrite_static("ATOM_ENERGY_FILE", &e_::ATOM_ENERGY_FILE)
   .def_readwrite_static("BOND_ENERGY_FILE", &e_::BOND_ENERGY_FILE)
+  .def_readwrite_static("SCORE_FILE", &e_::SCORE_FILE)
   .def_readwrite_static("INF", &e_::INF)
   .def_readwrite_static("MAXIMUM_BOND_ORDER", &e_::MAXIMUM_BOND_ORDER)
   .def_readwrite_static("USE_ELECTRON_PAIRS", &e_::USE_ELECTRON_PAIRS)

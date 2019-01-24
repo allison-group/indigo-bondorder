@@ -70,6 +70,7 @@ namespace indigox {
       
       static String ATOM_ENERGY_FILE;
       static String BOND_ENERGY_FILE;
+      static String SCORE_FILE;
       
       static Score INF;
       static Uint MAXIMUM_BOND_ORDER;

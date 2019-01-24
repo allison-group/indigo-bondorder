@@ -15,6 +15,8 @@
 
 #include <boost/algorithm/string.hpp>
 
+#include <nlohmann/json.hpp>
+
 #include "algorithm/electron_optimisation.hpp"
 #include "classes/atom.hpp"
 #include "classes/electron_graph.hpp"
@@ -58,8 +60,6 @@ namespace indigox {
 using namespace indigox;
 typedef Options::AssignElectrons opt_;
 
-
-
 ElectronOpt::ElectronOpt()
 : electronsToAdd_(0), molGraph_(std::make_shared<MolecularGraph>()),
 elnGraph_(std::make_shared<ElectronGraph>()) { }
@@ -75,7 +75,11 @@ void ElectronOpt::SetMolecularGraph(std::shared_ptr<MolecularGraph> G) {
 
 size_t ElectronOpt::Run() {
   possibleLocations_.clear();
-  if (scores_.empty()) LoadScores();
+  String filename = Options::DATA_DIRECTORY + opt_::SCORE_FILE;
+  if (!scores_.NumberScores() || opt_::SCORE_FILE != loaded_file) {
+    scores_.LoadScoreFile(filename);
+    loaded_file = String(opt_::SCORE_FILE);
+  }
   
   switch (opt_::ALGORITHM) {
     case opt_::Algorithm::LOCAL_OPTIMISATION:
@@ -95,6 +99,10 @@ size_t ElectronOpt::Run() {
   SetMolecularGraph(molGraph_);
   DetermineElectronsToAdd();
   DeterminePotentialElectronLocations();
+//  for (MolVertPair& loc : possibleLocations_) {
+//    MolVertex a = loc.first, b = loc.second;
+//    std::cout << "(" << molGraph_->GetProperties(a)->atom->GetName() << ", " << molGraph_->GetProperties(b)->atom->GetName() << ")\n";
+//  }
   if (opt_::ALGORITHM == opt_::Algorithm::ASTAR) SortPotentialLocations();
   algo_->PopulateMVP2EV();
   algo_->Run();
@@ -194,184 +202,6 @@ void ElectronOpt::DeterminePotentialElectronLocations() {
   }
 }
 
-void ElectronOpt::LoadScores() {
-  PeriodicTable_p pt = PeriodicTable::GetInstance();
-  if (Options::DATA_DIRECTORY.back() != '/') {
-    Options::DATA_DIRECTORY.append("/");
-  }
-  String atmFile = Options::DATA_DIRECTORY + opt_::ATOM_ENERGY_FILE;
-  utils::FileReader at(atmFile);
-  String bndFile = Options::DATA_DIRECTORY + opt_::BOND_ENERGY_FILE;
-  utils::FileReader bn(bndFile);
-  std::vector<std::string> at_items, bn_items;
-  at.GetAllItems(at_items);
-  bn.GetAllItems(bn_items);
-  
-  int64_t global_min = LLONG_MAX;
-  std::map<String, int64_t> la_mins;
-  std::map<std::pair<String, String>, int64_t> lb_mins;
-  
-  // Convert atom energies to ints
-#define NUM_DECIMAL_PLACE 5
-  for (size_t i = 2; i < at_items.size(); i += 3) {
-    std::string lead, tail;
-    size_t sep_pos = at_items[i].find_first_of('.');
-    if (sep_pos == std::string::npos)
-      throw std::invalid_argument(at_items[i] + std::string(" is not a decimal value."));
-    lead = at_items[i].substr(0, sep_pos);
-    tail = at_items[i].substr(sep_pos + 1, NUM_DECIMAL_PLACE);
-    while (tail.size() < NUM_DECIMAL_PLACE) tail.append("0");
-    int64_t score;
-    try {
-      score = std::stoll(lead + tail);
-    } catch (const std::invalid_argument& e) {
-      throw std::invalid_argument(at_items[i] + std::string(" is not a decimal value."));
-    }
-    if (la_mins.find(at_items[i-2]) == la_mins.end()) {
-      la_mins.emplace(at_items[i-2], score);
-    } else if (la_mins.at(at_items[i-2]) > score) {
-      la_mins.at(at_items[i-2]) = score;
-    }
-    if (score < global_min) global_min = score;
-    at_items[i] = lead + tail;
-  }
-  
-  // Convert bond energies to ints
-  for (size_t i = 3; i < bn_items.size(); i += 4) {
-    std::string lead, tail;
-    size_t sep_pos = bn_items[i].find_first_of('.');
-    if (sep_pos == std::string::npos)
-      throw std::invalid_argument(bn_items[i] + std::string(" is not a decimal value."));
-    lead = bn_items[i].substr(0, sep_pos);
-    tail = bn_items[i].substr(sep_pos + 1, NUM_DECIMAL_PLACE);
-    while (tail.size() < NUM_DECIMAL_PLACE) tail.append("0");
-    int64_t score;
-    try {
-      score = std::stoll(lead + tail);
-    } catch (const std::invalid_argument& e) {
-      throw std::invalid_argument(bn_items[i] + std::string(" is not a decimal value."));
-    }
-    if (score < global_min) global_min = score;
-    
-    String atomA = bn_items[i-3];
-    String atomB = bn_items[i-2];
-    size_t pos_sign_a, pos_sign_b;
-    pos_sign_a = atomA.find_first_of('+');
-    pos_sign_b = atomB.find_first_of('+');
-    
-    if (pos_sign_a != std::string::npos) {
-      atomA = atomA.substr(0, pos_sign_a);
-    } else {
-      pos_sign_a = atomA.find_first_of('-');
-      if (pos_sign_a != std::string::npos) atomA = atomA.substr(0, pos_sign_a);
-    }
-    
-    if (pos_sign_b != std::string::npos) {
-      atomB = atomB.substr(0, pos_sign_b);
-    } else {
-      pos_sign_b = atomB.find_first_of('-');
-      if (pos_sign_b != std::string::npos) atomB = atomB.substr(0, pos_sign_b);
-    }
-    
-    std::pair<String, String> b1 = std::make_pair(atomA, atomB);
-    std::pair<String, String> b2 = std::make_pair(atomB, atomA);
-    if (lb_mins.find(b1) == lb_mins.end()) {
-      lb_mins.emplace(b1, score);
-    } else if (lb_mins.at(b1) > score) {
-      lb_mins.at(b1) = score;
-    }
-    if (lb_mins.find(b2) == lb_mins.end()) {
-      lb_mins.emplace(b2, score);
-    } else if (lb_mins.at(b2) > score) {
-      lb_mins.at(b2) = score;
-    }
-    bn_items[i] = lead + tail;
-  }
-  
-  // Load atom energies
-  for (size_t i = 0; i < at_items.size(); i += 3) {
-    uint8_t Z = pt->GetElement(at_items[i])->GetAtomicNumber();
-    if (Z == 0) throw std::invalid_argument(at_items[i] + std::string(" is not a valid atomic symbol."));
-    int fc;
-    try {
-      fc = std::stoi(at_items[i + 1]);
-    } catch (const std::invalid_argument& e) {
-      throw std::invalid_argument(at_items[i+1] + std::string(" is not an integer value."));
-    }
-    uint32_t k = Z + (std::abs(fc) << 8);
-    if (fc < 0) k += (1 << 15);
-    Score val = (Score)(std::stoll(at_items[i + 2]) - la_mins.at(at_items[i]));
-    scores_.emplace(k, val);
-  }
-  
-  // Load bond energies
-  for (size_t i = 0; i < bn_items.size(); i += 4) {
-    char a_sign, b_sign;
-    size_t pos_sign_a, pos_sign_b;
-    pos_sign_a = bn_items[i].find_first_of('+');
-    pos_sign_b = bn_items[i + 1].find_first_of('+');
-    
-    if (pos_sign_a != std::string::npos) {
-      a_sign = '+';
-      bn_items[i] = bn_items[i].substr(0, pos_sign_a);
-    } else {
-      pos_sign_a = bn_items[i].find_first_of('-');
-      if (pos_sign_a != std::string::npos) {
-        a_sign = '-';
-        bn_items[i] = bn_items[i].substr(0, pos_sign_a);
-      } else a_sign = '0';
-    }
-    
-    if (pos_sign_b != std::string::npos) {
-      b_sign = '+';
-      bn_items[i+1] = bn_items[i+1].substr(0, pos_sign_b);
-    } else {
-      pos_sign_b = bn_items[i+1].find_first_of('-');
-      if (pos_sign_b != std::string::npos) {
-        b_sign = '-';
-        bn_items[i+1] = bn_items[i+1].substr(0, pos_sign_b);
-      } else b_sign = '0';
-    }
-    
-    uint8_t Za = pt->GetElement(bn_items[i])->GetAtomicNumber();
-    uint8_t Zb = pt->GetElement(bn_items[i+1])->GetAtomicNumber();
-    if (Za == 0) throw std::invalid_argument(at_items[i] + std::string(" is not a valid atomic symbol."));
-    if (Zb == 0) throw std::invalid_argument(at_items[i+1] + std::string(" is not a valid atomic symbol."));
-    
-    int order;
-    try {
-      order = std::stoi(bn_items[i + 2]);
-    } catch (const std::invalid_argument& e) {
-      throw std::invalid_argument(bn_items[i+2] + std::string(" is not an integer value."));
-    }
-    if (order < 1) throw std::invalid_argument(bn_items[i+2] + std::string(" is an invalid bond order."));
-    
-    uint32_t k1 = Za + (Zb << 8) + ((order * 2) << 20);
-    uint32_t k2 = Zb + (Za << 8) + ((order * 2) << 20);
-    
-    if (a_sign == '+') {
-      k1 += (1 << 16);
-      k2 += (1 << 18);
-    } else if (a_sign == '-') {
-      k1 += (2 << 16);
-      k2 += (2 << 18);
-    }
-    
-    if (b_sign == '+') {
-      k2 += (1 << 16);
-      k1 += (1 << 18);
-    } else if (b_sign == '-') {
-      k2 += (2 << 16);
-      k1 += (2 << 18);
-    }
-    std::pair<String, String> bondType = std::make_pair(bn_items[i], bn_items[i+1]);
-    Score val = (Score)(std::stoll(bn_items[i + 3]) - lb_mins.at(bondType));
-//    Score val = (Score)(std::stoll(bn_items[i + 3]) - global_min);
-    scores_.emplace(k1, val);
-    if (k1 != k2) scores_.emplace(k2, val);
-  }
-}
-
 void ElectronOpt::SortPotentialLocations() {
   std::vector<ElnVertProp*> sortedUniques;
   sortedUniques.reserve(possibleLocations_.size());
@@ -441,8 +271,8 @@ void ElectronOpt::SortPotentialLocations() {
                   && molGraph_->Degree(vp.second) == 2)
                 p->sort_score = SortOrder::C_TWO_C_TWO;
               else if (molGraph_->Degree(vp.first) == 3
-                    && molGraph_->Degree(vp.second) == 3)
-                  p->sort_score = SortOrder::C_THREE_C_THREE;
+                       && molGraph_->Degree(vp.second) == 3)
+                p->sort_score = SortOrder::C_THREE_C_THREE;
               else p->sort_score = SortOrder::UNDEFINED;
               break;
             case 7:

@@ -13,7 +13,7 @@
 
 namespace py = pybind11;
 
-PYBIND11_MODULE(pyindigox, m) {
+PYBIND11_MODULE(pybondorder, m) {
   using namespace indigox;
   GenerateOptions(m);
   GeneratePyAtom(m);

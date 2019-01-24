@@ -19,15 +19,16 @@ ELSE(PYTHON_SITE_PACKAGES)
   MESSAGE(WARNING "Unable to locate Python site-packages location. Python module will be installed in ${CMAKE_INSTALL_FULL_LIBDIR}")
   SET(PYTHON_SITE_PACKAGES ${CMAKE_INSTALL_FULL_LIBDIR})
 ENDIF(PYTHON_SITE_PACKAGES)
+MESSAGE(STATUS "Python found ${PYTHON_LIBRARIES} ${PYTHON_DEBUG_LIBRARIES} ${PYTHON_INCLUDE_PATH}")
 
 # Add the python module
-PYBIND11_ADD_MODULE(pyindigox ${INDIGOX_PYTHON_INTERFACE_SRCS})
+PYBIND11_ADD_MODULE(pybondorder ${INDIGOX_PYTHON_INTERFACE_SRCS})
 # Check compiler has required c++-14 features
 # GCC versions < 5 pass the has -std=c++14 flag test, but don't have relaxed_constexpr as required
-TARGET_COMPILE_FEATURES(pyindigox PRIVATE cxx_return_type_deduction)
-TARGET_COMPILE_FEATURES(pyindigox PRIVATE cxx_relaxed_constexpr)
-TARGET_LINK_LIBRARIES(pyindigox PRIVATE indigox)
+TARGET_COMPILE_FEATURES(pybondorder PRIVATE cxx_return_type_deduction)
+TARGET_COMPILE_FEATURES(pybondorder PRIVATE cxx_relaxed_constexpr)
+TARGET_LINK_LIBRARIES(pybondorder PRIVATE bondorder)
 
 # Set install rules
-INSTALL(TARGETS pyindigox DESTINATION ${PYTHON_SITE_PACKAGES}/indigox)
-INSTALL(FILES __init__.py DESTINATION ${PYTHON_SITE_PACKAGES}/indigox)
+INSTALL(TARGETS pybondorder DESTINATION ${PYTHON_SITE_PACKAGES}/bondorder2)
+INSTALL(FILES __init__.py DESTINATION ${PYTHON_SITE_PACKAGES}/bondorder2)

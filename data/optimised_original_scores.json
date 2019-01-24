@@ -1,0 +1,223 @@
+[
+  { "atom": { "element":  "H", "fc":  0 }, "score": 0 },
+  { "atom": { "element":  "C", "fc": -1 }, "score": 0 },
+  { "atom": { "element":  "C", "fc":  0 }, "score": 1739 },
+  { "atom": { "element":  "C", "fc":  1 }, "score": 42625 },
+  { "atom": { "element":  "N", "fc": -1 }, "score": 7991 },
+  { "atom": { "element":  "N", "fc":  0 }, "score": 0 },
+  { "atom": { "element":  "N", "fc":  1 }, "score": 52933 },
+  { "atom": { "element":  "O", "fc": -1 }, "score": 0 },
+  { "atom": { "element":  "O", "fc":  0 }, "score": 4559 },
+  { "atom": { "element":  "O", "fc":  1 }, "score": 53115 },
+  { "atom": { "element":  "F", "fc":  0 }, "score": 0 },
+  { "atom": { "element":  "P", "fc":  0 }, "score": 0 },
+  { "atom": { "element":  "P", "fc":  1 }, "score": 37813 },
+  { "atom": { "element":  "S", "fc": -1 }, "score": 0 },
+  { "atom": { "element":  "S", "fc":  0 }, "score": 6591 },
+  { "atom": { "element":  "S", "fc":  1 }, "score": 42801 },
+  { "atom": { "element": "Cl", "fc":  0 }, "score": 0 },
+  { "atom": { "element": "Br", "fc":  0 }, "score": 0 },
+  
+  
+  { "atomA": { "element": "C" },
+    "atomB": { "element": "C" },
+    "scores": [ { "order": 1, "score": 24979 },
+                { "order": 2, "score": 12460 },
+                { "order": 3, "score": 0 } ]
+  },
+  { "atomA": { "element": "C" },
+    "atomB": { "element": "H" },
+    "scores": [ { "order": 1, "score": 0 } ]
+  },
+  { "atomA": { "element": "C" },
+    "atomB": { "element": "N" },
+    "scores": [ { "order": 1, "score": 22165 },
+                { "order": 2, "score": 11389 },
+                { "order": 3, "score": 0 } ]
+  },
+  { "atomA": { "element": "C" },
+    "atomB": { "element": "O" },
+    "scores": [ { "order": 1, "score": 12709 },
+                { "order": 2, "score": 0 } ]
+  },
+  { "atomA": { "element": "C" },
+    "atomB": { "element": "P" },
+    "scores": [ { "order": 1, "score": 15026 },
+                { "order": 2, "score": 7963 },
+                { "order": 3, "score": 0 } ]
+  },
+  { "atomA": { "element": "C" },
+    "atomB": { "element": "S" },
+    "scores": [ { "order": 1, "score": 7968 },
+                { "order": 2, "score": 0 } ]
+  },
+  { "atomA": { "element": "H" },
+    "atomB": { "element": "N" },
+    "scores": [ { "order": 1, "score": 0 } ]
+  },
+  { "atomA": { "element": "H" },
+    "atomB": { "element": "O" },
+    "scores": [ { "order": 1, "score": 0 } ]
+  },
+  { "atomA": { "element": "H" },
+    "atomB": { "element": "P" },
+    "scores": [ { "order": 1, "score": 0 } ]
+  },
+  { "atomA": { "element": "H" },
+    "atomB": { "element": "S" },
+    "scores": [ { "order": 1, "score": 0 } ]
+  },
+  { "atomA": { "element": "N" },
+    "atomB": { "element": "N" },
+    "scores": [ { "order": 1, "score": 22407 },
+                { "order": 2, "score": 14185 },
+                { "order": 3, "score": 0 } ]
+  },
+  { "atomA": { "element": "N" },
+    "atomB": { "element": "O" },
+    "scores": [ { "order": 1, "score": 7493 },
+                { "order": 2, "score": 0 } ]
+  },
+  { "atomA": { "element": "N" },
+    "atomB": { "element": "P" },
+    "scores": [ { "order": 1, "score": 8163 },
+                { "order": 2, "score": 4210 },
+                { "order": 3, "score": 0 } ]
+  },
+  { "atomA": { "element": "N" },
+    "atomB": { "element": "S" },
+    "scores": [ { "order": 1, "score": 3216 },
+                { "order": 2, "score": 0 } ]
+  },
+  { "atomA": { "element": "O" },
+    "atomB": { "element": "O" },
+    "scores": [ { "order": 1, "score": 9702 },
+                { "order": 2, "score": 0 } ]
+  },
+  { "atomA": { "element": "O" },
+    "atomB": { "element": "P" },
+    "scores": [ { "order": 1, "score": 5713 },
+                { "order": 2, "score": 0 } ]
+  },
+  { "atomA": { "element": "O" },
+    "atomB": { "element": "S" },
+    "scores": [ { "order": 1, "score": 6862 },
+                { "order": 2, "score": 0 } ]
+  },
+  { "atomA": { "element": "P" },
+    "atomB": { "element": "P" },
+    "scores": [ { "order": 1, "score": 6632 },
+                { "order": 2, "score": 3476 },
+                { "order": 3, "score": 0 } ]
+  },
+  { "atomA": { "element": "P" },
+    "atomB": { "element": "S" },
+    "scores": [ { "order": 1, "score": 3440 },
+                { "order": 2, "score": 0 } ]
+  },
+  { "atomA": { "element": "S" },
+    "atomB": { "element": "S" },
+    "scores": [ { "order": 1, "score": 4696 },
+                { "order": 2, "score": 0 } ]
+  },
+  { "atomA": { "element": "Br" },
+    "atomB": { "element": "Br" },
+    "scores": [ { "order": 1, "score": 0 } ]
+  },
+  { "atomA": { "element": "Br" },
+    "atomB": { "element": "Cl" },
+    "scores": [ { "order": 1, "score": 0 } ]
+  },
+  { "atomA": { "element": "Br" },
+    "atomB": { "element": "F" },
+    "scores": [ { "order": 1, "score": 0 } ]
+  },
+  { "atomA": { "element": "Br" },
+    "atomB": { "element": "H" },
+    "scores": [ { "order": 1, "score": 0 } ]
+  },
+  { "atomA": { "element": "Br" },
+    "atomB": { "element": "N" },
+    "scores": [ { "order": 1, "score": 0 } ]
+  },
+  { "atomA": { "element": "Br" },
+    "atomB": { "element": "O" },
+    "scores": [ { "order": 1, "score": 0 } ]
+  },
+  { "atomA": { "element": "Br" },
+    "atomB": { "element": "P" },
+    "scores": [ { "order": 1, "score": 0 } ]
+  },
+  { "atomA": { "element": "Br" },
+    "atomB": { "element": "S" },
+    "scores": [ { "order": 1, "score": 0 } ]
+  },
+  { "atomA": { "element": "Br" },
+    "atomB": { "element": "C" },
+    "scores": [ { "order": 1, "score": 0 } ]
+  },
+  { "atomA": { "element": "C" },
+    "atomB": { "element": "Cl" },
+    "scores": [ { "order": 1, "score": 0 } ]
+  },
+  { "atomA": { "element": "C" },
+    "atomB": { "element": "F" },
+    "scores": [ { "order": 1, "score": 0 } ]
+  },
+  { "atomA": { "element": "Cl" },
+    "atomB": { "element": "Cl" },
+    "scores": [ { "order": 1, "score": 0 } ]
+  },
+  { "atomA": { "element": "Cl" },
+    "atomB": { "element": "F" },
+    "scores": [ { "order": 1, "score": 0 } ]
+  },
+  { "atomA": { "element": "Cl" },
+    "atomB": { "element": "H" },
+    "scores": [ { "order": 1, "score": 0 } ]
+  },
+  { "atomA": { "element": "Cl" },
+    "atomB": { "element": "N" },
+    "scores": [ { "order": 1, "score": 0 } ]
+  },
+  { "atomA": { "element": "Cl" },
+    "atomB": { "element": "O" },
+    "scores": [ { "order": 1, "score": 0 } ]
+  },
+  { "atomA": { "element": "Cl" },
+    "atomB": { "element": "P" },
+    "scores": [ { "order": 1, "score": 0 } ]
+  },
+  { "atomA": { "element": "Cl" },
+    "atomB": { "element": "S" },
+    "scores": [ { "order": 1, "score": 0 } ]
+  },
+  { "atomA": { "element": "F" },
+    "atomB": { "element": "F" },
+    "scores": [ { "order": 1, "score": 0 } ]
+  },
+  { "atomA": { "element": "F" },
+    "atomB": { "element": "H" },
+    "scores": [ { "order": 1, "score": 0 } ]
+  },
+  { "atomA": { "element": "F" },
+    "atomB": { "element": "N" },
+    "scores": [ { "order": 1, "score": 0 } ]
+  },
+  { "atomA": { "element": "F" },
+    "atomB": { "element": "O" },
+    "scores": [ { "order": 1, "score": 0 } ]
+  },
+  { "atomA": { "element": "F" },
+    "atomB": { "element": "P" },
+    "scores": [ { "order": 1, "score": 0 } ]
+  },
+  { "atomA": { "element": "F" },
+    "atomB": { "element": "S" },
+    "scores": [ { "order": 1, "score": 0 } ]
+  },
+  { "atomA": { "element": "H" },
+    "atomB": { "element": "H" },
+    "scores": [ { "order": 1, "score": 0 } ]
+  }
+]

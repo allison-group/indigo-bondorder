@@ -26,7 +26,7 @@ typedef assign_::LocalOptimisation lo_;
 // General
 #ifndef DFT_DATA_DIR
 //#define DFT_DATA_DIR "data"
-#define DFT_DATA_DIR /Users/iwelsh/GitHub/indigox/indigox/data
+#define DFT_DATA_DIR /Users/iwel143/GitHub/indigo-bondorder/data
 #endif
 #ifndef DFT_PERIODIC_TABLE_FILE
 #define DFT_PERIODIC_TABLE_FILE "periodictable.txt"
@@ -44,6 +44,9 @@ String opt_::PERIODIC_TABLE_FILE = DFT_PERIODIC_TABLE_FILE;
 #endif
 #ifndef DFT_ASSIGNELECTRON_BOND_FILE
 #define DFT_ASSIGNELECTRON_BOND_FILE "bondenergies_def2svpd.txt"
+#endif
+#ifndef DFT_ASSIGN_ELECTRON_SCORE_FILE
+#define DFT_ASSIGN_ELECTRON_SCORE_FILE "original_scores.json"
 #endif
 #ifndef DFT_ASSIGNELECTRON_INFINITY
 #define DFT_ASSIGNELECTRON_INFINITY std::numeric_limits<Score>::max()
@@ -79,6 +82,7 @@ String opt_::PERIODIC_TABLE_FILE = DFT_PERIODIC_TABLE_FILE;
 assign_::Algorithm assign_::ALGORITHM = DFT_ASSIGNELECTRON_ALGORITHM;
 String assign_::ATOM_ENERGY_FILE = DFT_ASSIGNELECTRON_ATOM_FILE;
 String assign_::BOND_ENERGY_FILE = DFT_ASSIGNELECTRON_BOND_FILE;
+String assign_::SCORE_FILE = DFT_ASSIGN_ELECTRON_SCORE_FILE;
 Score assign_::INF = DFT_ASSIGNELECTRON_INFINITY;
 Uint assign_::MAXIMUM_BOND_ORDER = DFT_ASSIGNELECTRON_MAX_BOND_ORDER;
 bool assign_::USE_ELECTRON_PAIRS = DFT_ASSIGNELECTRON_USE_PAIRS;

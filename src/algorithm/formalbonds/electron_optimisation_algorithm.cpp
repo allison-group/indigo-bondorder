@@ -244,14 +244,6 @@ Score ElectronOptimisationAlgorithm::CalculateVertexEnergy(ElnVertex& vert) {
                               parent_->possibleLocations_.end(), id);
   
   if (id.first == id.second) { // Atom energies
-    if (!opt_::ALLOW_CHARGED_CARBON && prop->atomic_number == 6
-        && prop->formal_charge != 0) {
-      return opt_::INF;
-    }
-    if (opt_::HIGHEST_MAGNITUDE_CHARGE > 0
-        && (size_t)abs(prop->formal_charge) > opt_::HIGHEST_MAGNITUDE_CHARGE) {
-      return opt_::INF;
-    }
     uint8_t valence = prop->electron_count + prop->pre_placed;
     bool allZero = true;
     ElnNbrsIterPair nbrs = parent_->elnGraph_->GetNeighbours(vert);
@@ -263,7 +255,7 @@ Score ElectronOptimisationAlgorithm::CalculateVertexEnergy(ElnVertex& vert) {
     }
     
     if (idCount == 0 && allZero) return 0;
-    
+
     if ((parent_->elnGraph_->Degree(vert) > 2
          && valence > prop->target_hyper_octet)
         || (parent_->elnGraph_->Degree(vert) <= 2
@@ -271,16 +263,7 @@ Score ElectronOptimisationAlgorithm::CalculateVertexEnergy(ElnVertex& vert) {
       return opt_::INF;
     }
     
-    
-    uint16_t k = prop->atomic_number + (abs(prop->formal_charge) << 8);
-    if (prop->formal_charge < 0)
-      k += (1 << 15);
-    auto pos = parent_->scores_.find(k);
-    if (pos == parent_->scores_.end())
-      return opt_::INF;
-    else
-      return pos->second;
-    
+    return parent_->scores_.GetScore(parent_->elnGraph_, vert);
   } else { // Bond energies
     if (!opt_::USE_CHARGED_BOND_ENERGIES && idCount == 0) return 0;
     ElnVertex u = parent_->elnGraph_->GetVertex(std::make_pair(id.first, id.first));
@@ -315,31 +298,7 @@ Score ElectronOptimisationAlgorithm::CalculateVertexEnergy(ElnVertex& vert) {
       return opt_::INF;
     }
     
-    uint32_t k = 0;
-    k += u_prop->atomic_number;
-    k += (v_prop->atomic_number << 8);
-    if (opt_::USE_CHARGED_BOND_ENERGIES){
-      if (u_prop->formal_charge < 0)
-        k += (2 << 16);
-      else if (u_prop->formal_charge > 0)
-        k += (1 << 16);
-      if (v_prop->formal_charge < 0)
-        k += (2 << 18);
-      else if (v_prop->formal_charge > 0)
-        k += (1 << 18);
-    }
-    k += ((prop->electron_count + prop->pre_placed) << 20);
-    
-    auto pos = parent_->scores_.find(k);
-    
-    if (pos != parent_->scores_.end())
-      return pos->second;
-    
-    pos = parent_->scores_.find(k & eneBitmask_);
-    if (pos != parent_->scores_.end())
-      return pos->second;
-    else
-      return opt_::INF;
+    return parent_->scores_.GetScore(parent_->elnGraph_, vert);
   }
 }
 

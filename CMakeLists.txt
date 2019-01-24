@@ -2,7 +2,7 @@
 CMAKE_MINIMUM_REQUIRED(VERSION 3.5)
 CMAKE_POLICY(VERSION 3.5)
 
-PROJECT(indigox VERSION 0.7.2.0)
+PROJECT(bondorder VERSION 0.7.2.0)
 
 # We require c++-14 compiler
 SET(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -13,7 +13,7 @@ SET(CMAKE_CXX_VISIBILITY_PRESET hidden)
 # Set defaults for available options
 OPTION(BUILD_PYTHON "Build Python bindings" ON)
 OPTION(USE_JAVA_QUICKBB "Build with Java interface to libtw so can use QuickBB tree-decomposition method" OFF)
-OPTION(BUILD_EXAMPLES "Build a few example programs" ON)
+OPTION(BUILD_EXAMPLES "Build a few example programs" OFF)
 
 # Default to release mode build. Does Debug actually do anything?
 IF(NOT CMAKE_BUILD_TYPE)
@@ -29,6 +29,7 @@ ENDIF()
 SET(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Og -DDEBUG")
 SET(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE}")
 INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR}/include/indigox)
+INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR}/external/json/include)
 
 # Set default install prefix to /usr/local/opt/indigox
 IF(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
@@ -43,6 +44,7 @@ ADD_DEFINITIONS(-DDFT_DATA_DIR=${CMAKE_INSTALL_FULL_DATAROOTDIR})
 # List all the files to compile into the indigox library
 SET(INDIGOX_LIB_SRCS
     src/algorithm/electron_optimisation.cpp
+    src/algorithm/scoring.cpp
     src/algorithm/formalbonds/astar.cpp
     src/algorithm/formalbonds/elimination_ordering.cpp
     src/algorithm/formalbonds/electron_optimisation_algorithm.cpp
@@ -65,7 +67,7 @@ SET(INDIGOX_LIB_SRCS
     src/utils/options.cpp)
 
 # Build the library
-ADD_LIBRARY(indigox STATIC ${INDIGOX_LIB_SRCS})
+ADD_LIBRARY(bondorder STATIC ${INDIGOX_LIB_SRCS})
 
 # We don't provide a boost version and it is required, so find it
 # Sometime I need to figure out a minimum required version for it. :S
@@ -84,7 +86,7 @@ IF(USE_JAVA_QUICKBB)
   FIND_PACKAGE(JNI REQUIRED)
   ADD_DEFINITIONS(-DBUILD_JAVA)
   INCLUDE_DIRECTORIES(${JNI_INCLUDE_DIRS})
-  TARGET_LINK_LIBRARIES(indigox ${JNI_LIBRARIES})
+  TARGET_LINK_LIBRARIES(bondorder ${JNI_LIBRARIES})
 ENDIF(USE_JAVA_QUICKBB)
 
 # Build bindings if requested
@@ -97,7 +99,7 @@ ENDIF(BUILD_PYTHON)
 IF(BUILD_EXAMPLES)
     ADD_EXECUTABLE(cxx_example examples/cxx_example.cpp)
     TARGET_INCLUDE_DIRECTORIES(cxx_example BEFORE PRIVATE ${PROJECT_SOURCE_DIR}/include)
-    TARGET_LINK_LIBRARIES(cxx_example indigox)
+    TARGET_LINK_LIBRARIES(cxx_example bondorder)
     ADD_CUSTOM_TARGET(examples ALL)
     ADD_DEPENDENCIES(examples cxx_example)
     INSTALL(TARGETS cxx_example DESTINATION ${CMAKE_INSTALL_PREFIX}/examples)
@@ -127,20 +129,17 @@ FILE(COPY examples/python_example.py DESTINATION examples)
 
 # Install examples
 # Install library
-INSTALL(TARGETS indigox DESTINATION ${CMAKE_INSTALL_LIBDIR})
+INSTALL(TARGETS bondorder DESTINATION ${CMAKE_INSTALL_LIBDIR})
 
 # Install header files. This should includes boost if the repo version is being used
 INSTALL(DIRECTORY ${PROJECT_SOURCE_DIR}/include/indigox
         DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 
 # Install data files
-INSTALL(FILES data/atomenergies_def2svpd.txt
-        data/atomenergies_def2tzvppd.txt
-        data/bondenergies_def2svpd.txt
-        data/bondenergies_def2svpd_withbsse.txt
-        data/bondenergies_def2tzvppd.txt
-        data/bondenergies_def2tzvppd_withbsse.txt
-        data/periodictable.txt
+INSTALL(FILES data/periodictable.txt
+        data/original_scores.json
+        data/optimised_scores.json
+        data/optimised_original_scores.json
         external/libtw.jar
         DESTINATION ${CMAKE_INSTALL_DATAROOTDIR})
 # Install documentation
