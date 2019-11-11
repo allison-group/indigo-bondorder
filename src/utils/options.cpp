@@ -25,9 +25,8 @@ typedef assign_::LocalOptimisation lo_;
 
 // General
 #ifndef DFT_DATA_DIR
-#define DFT_DATA_DIR ./data //TODO commit this! He left the static personal path in the code
-//#define DFT_DATA_DIR /Users/iwelsh/GitHub/indigox/indigox/data
-//#define DFT_DATA_DIR /home/sdun067/CherryPicker/indigo-bondorder/data/
+#define DFT_DATA_DIR ./data //If needed, set to direct path to data directory
+
 #endif
 #ifndef DFT_PERIODIC_TABLE_FILE
 #define DFT_PERIODIC_TABLE_FILE "periodictable.txt"
