@@ -1,15 +1,34 @@
 #include <iostream>
-
 #include <indigox/indigox.hpp>
+#include <chrono>
 
+/**
+ *
+ * A simple example of Bond Order and Formal Charge assignment, using the
+ * small molecule 4-Nitrobenzoate (https://pubchem.ncbi.nlm.nih.gov/compound/4419940).
+ *
+ * This returns 8 resonance structures because the aromatic ring, the nitro group
+ * and the benzoate group can have two formal configurations each (depending on
+ * which oxygens are charged and which set of bonds to represent in the aromatic
+ * ring).
+ *
+ * Note: If this example has trouble reading file locations, you may need to set
+ * Options::DATA_DIRECTORY to a the full path of your .data folder
+ *
+ * @return
+ */
 int main() {
     using namespace indigox;
+
+    auto start = std::chrono::high_resolution_clock::now();
 
     // Set the options to use
     Options::AssignElectrons::ALGORITHM = Options::AssignElectrons::Algorithm::FPT;
     Options::AssignElectrons::FPT::ADD_EDGES_TO_TD = false;
     Options::AssignElectrons::FPT::MINIMUM_PROPAGATION_DEPTH = 1;
     Options::AssignElectrons::USE_ELECTRON_PAIRS = false;
+
+    auto before_PT = std::chrono::high_resolution_clock::now();
 
     // Prepare elements
     PeriodicTable_p PT = PeriodicTable::GetInstance();
@@ -18,9 +37,17 @@ int main() {
     Element_p O = PT->GetElement("O");
     Element_p N = PT->GetElement("N");
 
+    auto after_PT = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> elapsed = after_PT - start;
+    std::cout << "PT Generation: \t" << elapsed.count() << " s\n";
+
     // Build the molecule
     Molecule_p m = CreateMolecule();
     m->SetTotalCharge(-1);
+
+    auto after_CreateMolecule = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> elapsed_2 = after_CreateMolecule - after_PT;
+    std::cout << "Create Molecule: \t" << elapsed_2.count() << " s\n";
 
     // Add the atoms
     Atom_p c1  = m->NewAtom(C);  c1->SetName("C1") ; 
@@ -40,6 +67,10 @@ int main() {
     Atom_p o15 = m->NewAtom(O); o15->SetName("O15");
     Atom_p o16 = m->NewAtom(O); o16->SetName("O16");
 
+    auto after_AddAtoms = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> elapsed_3 = after_AddAtoms - after_CreateMolecule;
+    std::cout << "Add Atoms: \t\t" << elapsed_3.count() << " s\n";
+
     // Add the bonds
     m->NewBond(c1,c2);
     m->NewBond(c1,c6);
@@ -57,17 +88,34 @@ int main() {
     m->NewBond(n9,o14);
     m->NewBond(c12,o15);
     m->NewBond(c12,o16);
+
+    auto after_AddBonds = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> elapsed_4 = after_AddBonds - after_AddAtoms;
+    std::cout << "Add Bonds: \t\t" << elapsed_4.count() << " s\n";
     
     // Print out some information
     std::cout << "Number of atoms: " << m->NumAtoms() << ", number of bonds: " << m->NumBonds() << "\n";
 
+    auto before_calc = std::chrono::high_resolution_clock::now();
+
     // Calculate bond orders and formal charges
     Uint count = m->AssignElectrons();
+
+    auto after_calc = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> elapsed_5 = after_calc - before_calc;
+    std::cout << "Calculate BO and FC: \t" << elapsed_5.count() << " s\n";
+
     std::cout << count << " resonance structure(s) calculated with a score of " << m->GetMinimumElectronAssignmentScore() << ".\n";
+
+    std::vector<double> times;
 
     // Print out each of the structures
     for (Uint i = 0; i < count; ++i) {
+        auto before_assignment = std::chrono::high_resolution_clock::now();
         m->ApplyElectronAssignment(i);
+        std::chrono::duration<double> to_add = std::chrono::high_resolution_clock::now() - before_assignment;
+        times.push_back(to_add.count());
+
         for (MolAtomIterator it = m->BeginAtom(); it != m->EndAtom(); ++it) {
             Atom_p at = *it;
             if (at->GetFormalCharge() != 0)
@@ -79,6 +127,12 @@ int main() {
                 std::cout << "Bond between " << bt->GetSourceAtom()->GetName() << " and " << bt->GetTargetAtom()->GetName() << " has an order of " << bt->GetOrder() << ".\n";
         }
         std::cout << std::endl;
+    }
+
+    std::cout << "\nElectron assignment times:" << std::endl;
+
+    for (auto time : times) {
+        std::cout << "\t" << time << " s\n";
     }
 
     return 0;

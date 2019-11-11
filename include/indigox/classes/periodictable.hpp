@@ -30,8 +30,8 @@ namespace indigox {
    *  Options::PERIODIC_TABLE_FILE attribute. This attribute should be set
    *  before creating a PeriodicTable instance.
    *
-   *  The file is formatted as white space seperated columns. Each line
-   *  coresponds to a single element. Column order is:
+   *  The file is formatted as white space separated columns. Each line
+   *  corresponds to a single element. Column order is:
    *    -# atomic number
    *    -# name of the element
    *    -# symbol for the element

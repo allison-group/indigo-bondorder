@@ -59,7 +59,7 @@ namespace indigox {
     Bond_p GetBondUniqueID(uid_t);
     
     /// @returns a shared pointer to the bond between two atoms, if it exists.
-    Bond_p GetBond(Atom_p, Atom_p) const;
+    Bond_p GetBond(const Atom_p &a, const Atom_p &b) const;
     
     /// @returns the chemical formula of the molecule.
     String GetFormula() const;

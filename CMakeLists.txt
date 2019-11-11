@@ -38,7 +38,9 @@ ELSE()
 ENDIF()
 # Setup install directories
 INCLUDE(GNUInstallDirs)
-ADD_DEFINITIONS(-DDFT_DATA_DIR=${CMAKE_INSTALL_FULL_DATAROOTDIR})
+
+# Line below was in original script, but stopped the data dir being set later during runs...
+#ADD_DEFINITIONS(-DDFT_DATA_DIR=${CMAKE_INSTALL_FULL_DATAROOTDIR})
 
 # List all the files to compile into the indigox library
 SET(INDIGOX_LIB_SRCS

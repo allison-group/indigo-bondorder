@@ -10,6 +10,7 @@
 #include <algorithm>
 #include <iostream>
 #include <map>
+#include <memory>
 #include <sstream>
 
 #include "api.hpp"
@@ -96,7 +97,7 @@ Bond_p Molecule::GetBondIndex(uid_t i) {
  *  @details Atoms should both be in the molecule. Returns a null bond if no
  *  such bond exists.
  */
-Bond_p Molecule::GetBond(Atom_p a, Atom_p b) const {
+Bond_p Molecule::GetBond(const Atom_p &a, const Atom_p& b) const {
   /// @todo Logging system calls for fail reasons
   Bond_p bnd = Bond_p();
   if (a->GetMolecule()->GetUniqueID() != GetUniqueID()) return bnd;
@@ -183,7 +184,7 @@ void Molecule::ResetIndices() {
 }
 
 Atom_p Molecule::NewAtom() {
-  Atom_p atm = Atom_p(new Atom(shared_from_this()));
+  Atom_p atm = std::make_shared<Atom>(shared_from_this());
   atoms_.emplace_back(atm);
   idx_to_atom_.emplace(atm->GetIndex(), atm);
   atom_to_vertex_.emplace(atm, graph_->AddVertex(atm));
@@ -212,7 +213,7 @@ Atom_p Molecule::NewAtom(uid_t idx, Element_p e) {
 Bond_p Molecule::NewBond(Atom_p a, Atom_p b) {
   /// @todo Logging for fail reasons.
   Bond_p bnd = Bond_p();
-  if (a->GetMolecule() != shared_from_this()) return bnd;
+  if (a->GetMolecule() != shared_from_this()) return bnd; //this is checking the atoms exist in the same molecule
   if (b->GetMolecule() != shared_from_this()) return bnd;
   bnd = GetBond(a, b);
   if (!bnd) {
