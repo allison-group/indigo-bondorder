@@ -20,8 +20,6 @@
 int main() {
     using namespace indigox;
 
-    auto start = std::chrono::high_resolution_clock::now();
-
     // Set the options to use
     Options::AssignElectrons::ALGORITHM = Options::AssignElectrons::Algorithm::FPT;
     Options::AssignElectrons::FPT::ADD_EDGES_TO_TD = false;
@@ -38,7 +36,7 @@ int main() {
     Element_p N = PT->GetElement("N");
 
     auto after_PT = std::chrono::high_resolution_clock::now();
-    std::chrono::duration<double> elapsed = after_PT - start;
+    std::chrono::duration<double> elapsed = after_PT - before_PT;
     std::cout << "PT Generation: \t" << elapsed.count() << " s\n";
 
     // Build the molecule
