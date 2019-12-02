@@ -154,14 +154,14 @@ def post_setup():
 # do the setup stuff
 packages = find_packages('src')
 
-package_data = {
+package_data = { # possibly changing this to indigo-bondorder too
     'indigox':['external/*.xml','external/*.jar'],
     }
 
 
 if __name__ == "__main__":
     setup(  cmdclass = {'install':install},
-            name="indigox",
+            name="indigox", # indigo-bondorder?
             version=version,
             packages=packages,
             install_requires=['scipy>=0.18',

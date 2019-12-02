@@ -19,7 +19,7 @@
 #include "../classes/electron_graph.hpp"
 #include "../classes/molecular_graph.hpp"
 
-namespace indigox {
+namespace indigo_bondorder {
   namespace algorithm {
     class ElectronOptimisationAlgorithm;
     class LocalOptimisation;
@@ -28,10 +28,10 @@ namespace indigox {
   }
   
   class ElectronOpt {
-    friend class indigox::algorithm::ElectronOptimisationAlgorithm;
-    friend class indigox::algorithm::LocalOptimisation;
-    friend class indigox::algorithm::AStarOptimisation;
-    friend class indigox::algorithm::FPTOptimisation;
+    friend class indigo_bondorder::algorithm::ElectronOptimisationAlgorithm;
+    friend class indigo_bondorder::algorithm::LocalOptimisation;
+    friend class indigo_bondorder::algorithm::AStarOptimisation;
+    friend class indigo_bondorder::algorithm::FPTOptimisation;
     
   public:
     uint32_t electronsToAdd_;

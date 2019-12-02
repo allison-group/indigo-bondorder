@@ -19,7 +19,7 @@
 #include "utils/java_interface.hpp"
 #endif
 
-namespace indigox {
+namespace indigo_bondorder {
   namespace algorithm {
     
     size_t VirtualElimination(PermutableGraph_p G, PermVertex v) {

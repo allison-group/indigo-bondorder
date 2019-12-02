@@ -26,7 +26,7 @@
 #include "utils/filereader.hpp"
 #include "utils/options.hpp"
 
-namespace indigox {
+namespace indigo_bondorder {
   enum class SortOrder {
     F_ONE,
     CL_ONE,
@@ -55,7 +55,7 @@ namespace indigox {
   };
 }
 
-using namespace indigox;
+using namespace indigo_bondorder;
 typedef Options::AssignElectrons opt_;
 
 

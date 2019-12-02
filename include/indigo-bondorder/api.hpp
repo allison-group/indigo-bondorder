@@ -12,7 +12,7 @@
 #ifndef INDIGO_BONDORDER_API_HPP
 #define INDIGO_BONDORDER_API_HPP
 
-namespace indigox {
+namespace indigo_bondorder {
   // General typedefs
   typedef int Int;
   typedef unsigned int Uint;

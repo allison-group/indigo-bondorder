@@ -17,7 +17,7 @@
 #include "classes/periodictable.hpp"
 #include "utils/counter.hpp"
 
-namespace indigox {
+namespace indigo_bondorder {
   
   /*
    *  Atom implementation

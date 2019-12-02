@@ -16,7 +16,7 @@
 #include "utils/filereader.hpp"
 
 
-namespace indigox {
+namespace indigo_bondorder {
   namespace utils {
     
     /** @details Sets the path of a file to read.

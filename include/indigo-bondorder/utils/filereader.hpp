@@ -14,7 +14,7 @@
 
 #include "../api.hpp"
 
-namespace indigox {
+namespace indigo_bondorder {
   namespace utils {
     
     /** @class FileReader filereader.hpp

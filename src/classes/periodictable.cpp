@@ -19,7 +19,7 @@
 #include "utils/filereader.hpp"
 #include "utils/options.hpp"
 
-namespace indigox {
+namespace indigo_bondorder {
   
   /*
    *  Element implementation
@@ -136,7 +136,7 @@ namespace indigox {
   /*
    *  Operators
    */
-  namespace ix = indigox;
+  namespace ix = indigo_bondorder;
   
   std::ostream& operator<<(std::ostream& s, ix::Element_p e) {
     return (s << e->ToString());

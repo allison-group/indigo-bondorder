@@ -13,7 +13,7 @@
 
 #include "../api.hpp"
 
-namespace indigox {
+namespace indigo_bondorder {
   namespace utils {
     
     String GetEliminationOrdering(String& dgf_graph);

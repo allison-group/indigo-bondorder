@@ -12,7 +12,7 @@
 #include "api.hpp"
 #include "utils/options.hpp"
 
-using namespace indigox;
+using namespace indigo_bondorder;
 
 typedef Options opt_;
 typedef opt_::AssignElectrons assign_;

@@ -11,7 +11,7 @@
 #ifndef INDIGO_BONDORDER_UTILS_HELPERS_HPP
 #define INDIGO_BONDORDER_UTILS_HELPERS_HPP
 
-namespace indigox {
+namespace indigo_bondorder {
   /// @brief Helper function to generate a new Atom instance.
   Atom_p CreateAtom();
   

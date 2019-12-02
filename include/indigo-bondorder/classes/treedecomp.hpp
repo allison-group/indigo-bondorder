@@ -17,7 +17,7 @@
 #include "../utils/graph.hpp"
 #include "permutablegraph.hpp"
 
-namespace indigox {
+namespace indigo_bondorder {
   
   struct TDVertProp {
     std::set<PermVertex> bag;

@@ -10,9 +10,9 @@
 #include "utils/options.hpp"
 
 namespace py = pybind11;
-using namespace indigox;
+using namespace indigo_bondorder;
 
-void indigox::GenerateOptions(py::module& m) {
+void indigo_bondorder::GenerateOptions(py::module& m) {
   // General options
   typedef Options o_;
   py::class_<o_, std::shared_ptr<o_>> PyOptions(m, "Options");

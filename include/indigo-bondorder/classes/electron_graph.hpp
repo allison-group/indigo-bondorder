@@ -16,7 +16,7 @@
 #include "../utils/graph.hpp"
 
 
-namespace indigox {
+namespace indigo_bondorder {
   
   enum class SortOrder;
   

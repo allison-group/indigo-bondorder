@@ -14,7 +14,7 @@
 
 #include "../api.hpp"
 
-namespace indigox {
+namespace indigo_bondorder {
   namespace utils {
     
     /// @brief Convert a string to upper case.
@@ -30,7 +30,7 @@ namespace indigox {
     String randomString(size_t);
     
   }  // namespace utils
-}  // namespace indigo-bondorder
+}  // namespace indigo_bondorder
 
 
 #endif /* INDIGO_BONDORDER_UTILS_COMMON_HPP */

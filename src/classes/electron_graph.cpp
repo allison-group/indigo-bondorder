@@ -14,7 +14,7 @@
 #include "utils/graph.hpp"
 #include "utils/options.hpp"
 
-namespace indigox {
+namespace indigo_bondorder {
   
   uint8_t PreplaceCount(const MolecularGraph &G, MolVertex v) {
     if (!Options::AssignElectrons::PREPLACE_ELECTRONS) return 0;

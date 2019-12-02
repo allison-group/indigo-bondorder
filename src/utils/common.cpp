@@ -14,7 +14,7 @@
 #include "utils/common.hpp"
 
 /// Global namespace for all indigoX code.
-namespace indigox {
+namespace indigo_bondorder {
   /// Nested namespace for some useful utilities.
   namespace utils {
     
@@ -67,4 +67,4 @@ namespace indigox {
     }
     
   }  // namespace utils
-}  // namespace indigo-bondorder
+}  // namespace indigo_bondorder

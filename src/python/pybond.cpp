@@ -20,7 +20,7 @@
 
 namespace py = pybind11;
 
-namespace indigox {
+namespace indigo_bondorder {
   void GeneratePyBond(py::module& m) {
     // Bond class
     py::class_<Bond, Bond_p>(m, "Bond")

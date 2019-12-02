@@ -17,7 +17,7 @@
 #include "utils/java_interface.hpp"
 #include "utils/options.hpp"
 
-namespace indigox {
+namespace indigo_bondorder {
   namespace utils {
     
     String GetEliminationOrdering(String& dgf_graph) {

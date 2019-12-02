@@ -18,7 +18,7 @@
 #include "classes/treedecomp.hpp"
 #include "classes/permutablegraph.hpp"
 
-using namespace indigox;
+using namespace indigo_bondorder;
 using namespace algorithm;
 
 typedef Options::AssignElectrons opt_;

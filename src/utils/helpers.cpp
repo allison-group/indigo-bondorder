@@ -12,7 +12,7 @@
 #include "classes/molecule.hpp"
 #include "utils/helpers.hpp"
 
-namespace indigox {
+namespace indigo_bondorder {
   /// @returns a shared pointer to a new Atom instance.
   Atom_p CreateAtom() { return Atom_p(new Atom()); }
   

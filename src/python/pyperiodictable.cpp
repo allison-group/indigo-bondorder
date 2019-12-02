@@ -8,7 +8,7 @@
 #include "classes/periodictable.hpp"
 
 namespace py = pybind11;
-namespace indigox {
+namespace indigo_bondorder {
   void GeneratePyPeriodicTable(py::module& m) {
     py::class_<PeriodicTable, PeriodicTable_p>(m, "PeriodicTable")
     .def(py::init<>(&PeriodicTable::GetInstance), py::return_value_policy::reference)

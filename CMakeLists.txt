@@ -2,7 +2,7 @@
 CMAKE_MINIMUM_REQUIRED(VERSION 3.5)
 CMAKE_POLICY(VERSION 3.5)
 
-PROJECT(indigox VERSION 0.7.2.0)
+PROJECT(indigox VERSION 0.7.2.0) # change project to indigo-bondorder?
 
 # We require c++-14 compiler
 SET(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -28,7 +28,7 @@ IF("${CMAKE_SYSTEM_NAME}" STREQUAL "Linux")
 ENDIF()
 SET(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Og -DDEBUG")
 SET(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE}")
-INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR}/include/indigox)
+INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR}/include/indigo-bondorder)
 
 # Set default install prefix to /usr/local/opt/indigox
 IF(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
@@ -132,7 +132,7 @@ FILE(COPY examples/python_example.py DESTINATION examples)
 INSTALL(TARGETS indigox DESTINATION ${CMAKE_INSTALL_LIBDIR})
 
 # Install header files. This should includes boost if the repo version is being used
-INSTALL(DIRECTORY ${PROJECT_SOURCE_DIR}/include/indigox
+INSTALL(DIRECTORY ${PROJECT_SOURCE_DIR}/include/indigo-bondorder
         DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 
 # Install data files

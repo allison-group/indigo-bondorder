@@ -20,7 +20,7 @@
 #include "utils/helpers.hpp"
 
 namespace py = pybind11;
-namespace indigox {
+namespace indigo_bondorder {
   void GeneratePyMolecule(py::module& m) {
     py::class_<Molecule, Molecule_p>(m, "Molecule")
     // Hidden methods

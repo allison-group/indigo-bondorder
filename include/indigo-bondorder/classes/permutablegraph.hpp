@@ -16,7 +16,7 @@
 #include "molecular_graph.hpp"
 #include "../utils/graph.hpp"
 
-namespace indigox {
+namespace indigo_bondorder {
   struct PermVertProp {
     MolVertPair source;
     uid_t bag;

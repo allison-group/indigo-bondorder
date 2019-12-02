@@ -11,7 +11,7 @@
 #include "classes/iters.hpp"
 #include "classes/molecule.hpp"
 
-using namespace indigox;
+using namespace indigo_bondorder;
 
 AtomIterator::AtomIterator() : type_(UNDEFINED), ptr_() { }
 

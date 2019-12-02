@@ -15,7 +15,7 @@
 #include "utils/graph.hpp"
 #include "utils/options.hpp"
 
-using namespace indigox;
+using namespace indigo_bondorder;
 typedef Options::AssignElectrons::FPT fpt_;;
 
 String PermutableGraph::ToDGFString() {

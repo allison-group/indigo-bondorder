@@ -16,7 +16,7 @@
 #include "../utils/graph.hpp"
 #include "treedecomp.hpp"
 
-namespace indigox {
+namespace indigo_bondorder {
     
     struct NTDVertProp {
       uint32_t id;

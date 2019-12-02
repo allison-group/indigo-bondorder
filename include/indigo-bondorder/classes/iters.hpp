@@ -19,7 +19,7 @@
 #ifndef INDIGO_BONDORDER_CLASSES_ITERS_HPP
 #define INDIGO_BONDORDER_CLASSES_ITERS_HPP
 
-namespace indigox {
+namespace indigo_bondorder {
   
   enum IteratorType {
     ATOM_NEIGHBOUR,

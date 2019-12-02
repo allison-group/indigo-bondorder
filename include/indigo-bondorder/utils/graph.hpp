@@ -18,7 +18,7 @@
 
 #include "../api.hpp"
 
-namespace indigox {
+namespace indigo_bondorder {
   namespace utils {
     
     template <class PropType>

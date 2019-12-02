@@ -19,7 +19,7 @@
 #include "../api.hpp"
 #include "../utils/counter.hpp"
 
-namespace indigox {
+namespace indigo_bondorder {
 
   // Related typedefs
   typedef std::vector<Bond_wp> AtomBonds;

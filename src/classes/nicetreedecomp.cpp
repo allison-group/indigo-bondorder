@@ -22,7 +22,7 @@
 #include "classes/treedecomp.hpp"
 #include "utils/options.hpp"
 
-namespace indigox {
+namespace indigo_bondorder {
   
   size_t NTDecomp::GetWidth() {
     size_t maxBag = 0;

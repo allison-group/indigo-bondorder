@@ -13,7 +13,7 @@
 #include "classes/bond.hpp"
 #include "utils/counter.hpp"
 
-namespace indigox {
+namespace indigo_bondorder {
   
   /*
    *  Bond implementation

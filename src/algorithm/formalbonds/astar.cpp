@@ -18,7 +18,7 @@
 
 #include "utils/options.hpp"
 
-std::ostream& operator<<(std::ostream& os, const indigox::algorithm::p_AStarQueueItem a) {
+std::ostream& operator<<(std::ostream& os, const indigo_bondorder::algorithm::p_AStarQueueItem a) {
   os << "Distribution:        " << a->distribution << std::endl;
   os << "Unchangeables:       " << a->unchangeable << std::endl;
   os << "Calculable:          " << a->calculable << std::endl;
@@ -28,7 +28,7 @@ std::ostream& operator<<(std::ostream& os, const indigox::algorithm::p_AStarQueu
   return os;
 }
 
-using namespace indigox;
+using namespace indigo_bondorder;
 using namespace algorithm;
 typedef Options::AssignElectrons opt_;
 typedef opt_::AStar opt_as;

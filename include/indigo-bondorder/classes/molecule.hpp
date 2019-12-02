@@ -20,7 +20,7 @@
 #ifndef INDIGO_BONDORDER_MOLECULE_HPP
 #define INDIGO_BONDORDER_MOLECULE_HPP
 
-namespace indigox {
+namespace indigo_bondorder {
   
   // Related typedefs
   typedef std::vector<Atom_p> MolAtoms;

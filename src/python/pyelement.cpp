@@ -8,7 +8,7 @@
 #include "classes/periodictable.hpp"
 
 namespace py = pybind11;
-namespace indigox {
+namespace indigo_bondorder {
   void GeneratePyElement(py::module& m) {
     py::class_<Element, Element_p>(m, "Element")
     .def("__eq__", py::overload_cast<Element_p, uint8_t>(&operator==))

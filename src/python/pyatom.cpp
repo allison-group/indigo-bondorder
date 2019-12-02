@@ -19,7 +19,7 @@
 
 namespace py = pybind11;
 
-namespace indigox {
+namespace indigo_bondorder {
   void GeneratePyAtom(pybind11::module& m) {
     py::class_<Atom, Atom_p>(m, "Atom")
     // Hidden methods

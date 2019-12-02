@@ -15,7 +15,7 @@
 #include "algorithm/formalbonds/electron_optimisation_algorithm.hpp"
 #include "utils/options.hpp"
 
-using namespace indigox;
+using namespace indigo_bondorder;
 using namespace algorithm;
 
 typedef Options::AssignElectrons opt_;

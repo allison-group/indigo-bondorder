@@ -19,7 +19,7 @@
 #include "../electron_optimisation.hpp"
 #include "../../api.hpp"
 
-namespace indigox {
+namespace indigo_bondorder {
   namespace algorithm {
     
     typedef boost::dynamic_bitset<> ElnDist;

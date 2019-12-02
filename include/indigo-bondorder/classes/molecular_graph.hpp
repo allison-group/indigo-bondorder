@@ -21,7 +21,7 @@
 #include "../utils/counter.hpp"
 #include "../utils/graph.hpp"
 
-namespace indigox {
+namespace indigo_bondorder {
   
   struct MolVertProp {
 //    float charge = 0.0f;
@@ -90,6 +90,6 @@ namespace indigox {
     
   };
   
-}  // namespace indigo-bondorder
+}  // namespace indigo_bondorder
 
 #endif /* INDIGO_BONDORDER_CLASSES_MOLECULAR_GRAPH_HPP */

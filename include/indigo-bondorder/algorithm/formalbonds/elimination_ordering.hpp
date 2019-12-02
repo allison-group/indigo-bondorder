@@ -13,7 +13,7 @@
 
 #include "../../classes/permutablegraph.hpp"
 
-namespace indigox {
+namespace indigo_bondorder {
   namespace algorithm {
     
     void RandomOrder(PermutableGraph_p, ElimOrder&);

@@ -23,7 +23,7 @@
 #include "utils/options.hpp"
 
 
-using namespace indigox;
+using namespace indigo_bondorder;
 
 /*
  * Molecule implementation

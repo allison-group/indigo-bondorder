@@ -18,7 +18,7 @@
 
 #include "../api.hpp"
 
-namespace indigox {
+namespace indigo_bondorder {
   
   /** @class PeriodicTable periodictable.hpp classes/periodictable.hpp
    *  @brief Singleton class for storing and access elemental information.
@@ -140,7 +140,7 @@ namespace indigox {
             uint8_t, uint8_t, Float, Float, Float, Float);
   };
   
-  std::ostream& operator<<(std::ostream& s, indigox::Element_p e);
+  std::ostream& operator<<(std::ostream& s, indigo_bondorder::Element_p e);
   
   bool operator==(Element_p l, uint8_t r);
   bool operator==(Element_p l, String r);

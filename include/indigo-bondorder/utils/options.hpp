@@ -15,7 +15,7 @@
 #ifndef INDIGO_BONDORDER_UTILS_OPTIONS_HPP
 #define INDIGO_BONDORDER_UTILS_OPTIONS_HPP
 
-namespace indigox {
+namespace indigo_bondorder {
   
   /** @struct Options options.hpp utils/options.hpp
    *  @brief Static struct containing all runtime changeable options for

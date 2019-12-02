@@ -20,7 +20,7 @@
 #include "utils/common.hpp"
 #include "utils/options.hpp"
 
-using namespace indigox;
+using namespace indigo_bondorder;
 
 MolecularGraph::MolecularGraph()
 : _MolGraph()

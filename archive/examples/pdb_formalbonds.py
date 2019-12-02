@@ -65,9 +65,9 @@ def obMolToCXXBuildFunction(obMol):
     formatting = dict(name=obMol.GetTitle())
     formatting['q'] = mol_fcs[formatting['name']]
     
-    build_string = """void Build{name}(std::shared_ptr<indigox::graph::MolecularGraph> G) {{
-  using namespace indigox::graph;
-  using namespace indigox;
+    build_string = """void Build{name}(std::shared_ptr<indigo-bondorder::graph::MolecularGraph> G) {{
+  using namespace indigo_bondorder::graph;
+  using namespace indigo_bondorder;
   
   IXPeriodicTable pt = IXPeriodicTable();
   G->Clear();
@@ -100,7 +100,7 @@ def obMolToCXXBuildFunction(obMol):
     formatting['adding_vertices'] = "\n  ".join(atom_ads)
     formatting['adding_edges'] = "\n  ".join(bond_ads)
     
-    return build_string.format(**formatting), "void Build{name}(std::shared_ptr<indigox::graph::MolecularGraph> G);".format(**formatting)
+    return build_string.format(**formatting), "void Build{name}(std::shared_ptr<indigo-bondorder::graph::MolecularGraph> G);".format(**formatting)
 
 def main():
     cl_parser = argparse.ArgumentParser(

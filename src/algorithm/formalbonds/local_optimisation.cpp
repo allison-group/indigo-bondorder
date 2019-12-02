@@ -19,7 +19,7 @@
 #include "classes/electron_graph.hpp"
 #include "utils/options.hpp"
 
-using namespace indigox;
+using namespace indigo_bondorder;
 using namespace algorithm;
 typedef Options::AssignElectrons opt_;
 typedef opt_::LocalOptimisation lo_;

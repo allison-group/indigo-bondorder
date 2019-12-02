@@ -14,7 +14,7 @@
 /// @todo add opaque set<string> stuff so can add to string
 // PYBIND11_MAKE_OPAQUE(std::set<indigo-bondorder::String>)
 
-namespace indigox {
+namespace indigo_bondorder {
   void GenerateOptions(pybind11::module& m);
   void GeneratePyAtom(pybind11::module& m);
   void GeneratePyBond(pybind11::module& m);

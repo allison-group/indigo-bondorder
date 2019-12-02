@@ -1,5 +1,5 @@
 #include <iostream>
-#include <indigo-bondorder/indigox.hpp>
+#include <indigo-bondorder/indigo-bondorder.hpp>
 #include <chrono>
 
 /**
@@ -18,7 +18,7 @@
  * @return
  */
 int main() {
-    using namespace indigox;
+    using namespace indigo_bondorder;
 
     // Set the options to use
     Options::AssignElectrons::ALGORITHM = Options::AssignElectrons::Algorithm::FPT;
@@ -37,7 +37,7 @@ int main() {
 
     auto after_PT = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> elapsed = after_PT - before_PT;
-    std::cout << "PT Generation: \t" << elapsed.count() << " s\n";
+    std::cout << "PT Generation: \t\t" << elapsed.count() << " s\n";
 
     // Build the molecule
     Molecule_p m = CreateMolecule();
@@ -67,7 +67,7 @@ int main() {
 
     auto after_AddAtoms = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> elapsed_3 = after_AddAtoms - after_CreateMolecule;
-    std::cout << "Add Atoms: \t\t" << elapsed_3.count() << " s\n";
+    std::cout << "Add Atoms: \t\t\t" << elapsed_3.count() << " s\n";
 
     // Add the bonds
     m->NewBond(c1,c2);
@@ -89,7 +89,7 @@ int main() {
 
     auto after_AddBonds = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> elapsed_4 = after_AddBonds - after_AddAtoms;
-    std::cout << "Add Bonds: \t\t" << elapsed_4.count() << " s\n";
+    std::cout << "Add Bonds: \t\t\t" << elapsed_4.count() << " s\n\n";
     
     // Print out some information
     std::cout << "Number of atoms: " << m->NumAtoms() << ", number of bonds: " << m->NumBonds() << "\n";

@@ -16,7 +16,7 @@
 
 #include "electron_optimisation_algorithm.hpp"
 
-namespace indigox {
+namespace indigo_bondorder {
   namespace algorithm {
     
     class LocalOptimisation : public ElectronOptimisationAlgorithm {

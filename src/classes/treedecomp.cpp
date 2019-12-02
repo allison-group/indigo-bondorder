@@ -25,7 +25,7 @@
 #include "utils/java_interface.hpp"
 #endif
 
-namespace indigox {
+namespace indigo_bondorder {
   
   
   typedef Options::AssignElectrons::FPT fpt_;

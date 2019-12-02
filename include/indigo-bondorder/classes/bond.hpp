@@ -14,7 +14,7 @@
 #ifndef INDIGO_BONDORDER_CLASSES_BOND_HPP
 #define INDIGO_BONDORDER_CLASSES_BOND_HPP
 
-namespace indigox {
+namespace indigo_bondorder {
   
   // Related typedefs
   typedef std::array<Atom_wp, 2> BondAtoms;
