@@ -1,6 +1,6 @@
 //
 //  api.hpp
-//  indigox
+//  indigo-bondorder
 //
 //  Created by Ivan Welsh on 7/01/18.
 //  Copyright © 2018 Hermes Productions. All rights reserved.
@@ -9,8 +9,8 @@
 #include <memory>
 #include <string>
 
-#ifndef INDIGOX_API_HPP
-#define INDIGOX_API_HPP
+#ifndef INDIGO_BONDORDER_API_HPP
+#define INDIGO_BONDORDER_API_HPP
 
 namespace indigox {
   // General typedefs
@@ -69,5 +69,5 @@ namespace indigox {
 }
 
 
-#endif /* INDIGOX_API_HPP */
+#endif /* INDIGO_BONDORDER_API_HPP */
 

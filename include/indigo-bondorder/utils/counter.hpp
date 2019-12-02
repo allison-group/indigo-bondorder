@@ -7,8 +7,8 @@
  *  @copyright The MIT License
  */
 
-#ifndef INDIGOX_UTILS_COUNTER_HPP
-#define INDIGOX_UTILS_COUNTER_HPP
+#ifndef INDIGO_BONDORDER_UTILS_COUNTER_HPP
+#define INDIGO_BONDORDER_UTILS_COUNTER_HPP
 
 #include <cstdint>
 
@@ -50,4 +50,4 @@ namespace indigox {
   }
 }
 
-#endif /* INDIGOX_UTILS_COUNTER_HPP */
+#endif /* INDIGO_BONDORDER_UTILS_COUNTER_HPP */

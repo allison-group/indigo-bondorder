@@ -1,13 +1,13 @@
 //
 //  graph.hpp
-//  indigox
+//  indigo-bondorder
 //
 //  Created by Welsh, Ivan on 10/11/17.
 //  Copyright © 2017 Allison Group. All rights reserved.
 //
 
-#ifndef INDIGOX_UTILS_GRAPH_HPP
-#define INDIGOX_UTILS_GRAPH_HPP
+#ifndef INDIGO_BONDORDER_UTILS_GRAPH_HPP
+#define INDIGO_BONDORDER_UTILS_GRAPH_HPP
 
 #include <cstdint>
 #include <map>
@@ -39,7 +39,7 @@ namespace indigox {
     
     // Abstracts away all boost code hopefully
     
-    /* Template base class for graphs used in indigox.
+    /* Template base class for graphs used in indigo-bondorder.
      * Classes can be directed or undirected, but cannot have self loops
      * or parallel edges. Properties can be assigned to vertices and edges.
      *
@@ -413,5 +413,5 @@ namespace indigox {
   }
 }
 
-#endif /* INDIGOX_UTILS_GRAPH_HPP */
+#endif /* INDIGO_BONDORDER_UTILS_GRAPH_HPP */
 

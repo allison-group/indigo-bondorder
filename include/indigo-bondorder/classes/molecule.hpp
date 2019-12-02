@@ -17,8 +17,8 @@
 #include "molecular_graph.hpp"
 #include "../utils/counter.hpp"
 
-#ifndef INDIGOX_MOLECULE_HPP
-#define INDIGOX_MOLECULE_HPP
+#ifndef INDIGO_BONDORDER_MOLECULE_HPP
+#define INDIGO_BONDORDER_MOLECULE_HPP
 
 namespace indigox {
   
@@ -140,4 +140,4 @@ namespace indigox {
   
 }
 
-#endif /* INDIGOX_MOLECULE_HPP */
+#endif /* INDIGO_BONDORDER_MOLECULE_HPP */

@@ -8,8 +8,8 @@
  */
 #include "../api.hpp"
 
-#ifndef INDIGOX_UTILS_HELPERS_HPP
-#define INDIGOX_UTILS_HELPERS_HPP
+#ifndef INDIGO_BONDORDER_UTILS_HELPERS_HPP
+#define INDIGO_BONDORDER_UTILS_HELPERS_HPP
 
 namespace indigox {
   /// @brief Helper function to generate a new Atom instance.
@@ -23,4 +23,4 @@ namespace indigox {
   
 }
 
-#endif /* INDIGOX_UTILS_HELPERS_HPP */
+#endif /* INDIGO_BONDORDER_UTILS_HELPERS_HPP */

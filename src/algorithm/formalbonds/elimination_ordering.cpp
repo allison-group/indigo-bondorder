@@ -1,6 +1,6 @@
 //
 //  elimination_ordering.cpp
-//  indigox
+//  indigo-bondorder
 //
 //  Created by Ivan Welsh on 14/01/18.
 //  Copyright © 2018 Hermes Productions. All rights reserved.
@@ -62,7 +62,7 @@ namespace indigox {
       std::istringstream ss(EO);
       String idx;
       while (std::getline(ss, idx, ' ')) {
-        indigox::uid_t i = (indigox::uid_t)std::stoull(idx);
+        indigo-bondorder::uid_t i = (indigo-bondorder::uid_t)std::stoull(idx); //double check this is changed
         order.push_back(G->GetVertexByIndex(i).first);
       }
       

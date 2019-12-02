@@ -1,6 +1,6 @@
 //
 //  molecular_graph.cpp
-//  indigox
+//  indigo-bondorder
 //
 //  Created by Welsh, Ivan on 25/08/17.
 //  Copyright © 2017 Allison Group. All rights reserved.

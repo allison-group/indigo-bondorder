@@ -1,6 +1,6 @@
 //
 //  local_optimisation.hpp
-//  indigox
+//  indigo-bondorder
 //
 //  Created by Welsh, Ivan on 13/09/17.
 //  Copyright © 2017 Allison Group. All rights reserved.

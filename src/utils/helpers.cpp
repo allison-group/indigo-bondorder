@@ -1,6 +1,6 @@
 //
 //  helpers.cpp
-//  indigox
+//  indigo-bondorder
 //
 //  Created by Welsh, Ivan on 8/01/18.
 //  Copyright © 2018 Allison Group. All rights reserved.

@@ -1,13 +1,13 @@
 //
 //  permutablegraph.hpp
-//  indigox
+//  indigo-bondorder
 //
 //  Created by Ivan Welsh on 13/01/18.
 //  Copyright © 2018 Hermes Productions. All rights reserved.
 //
 
-#ifndef INDIGOX_CLASSES_PERMUTABLEGRAPH_HPP
-#define INDIGOX_CLASSES_PERMUTABLEGRAPH_HPP
+#ifndef INDIGO_BONDORDER_CLASSES_PERMUTABLEGRAPH_HPP
+#define INDIGO_BONDORDER_CLASSES_PERMUTABLEGRAPH_HPP
 
 #include <memory>
 #include <vector>
@@ -54,4 +54,4 @@ namespace indigox {
   
 }
 
-#endif /* INDIGOX_CLASSES_PERMUTABLEGRAPH_HPP */
+#endif /* INDIGO_BONDORDER_CLASSES_PERMUTABLEGRAPH_HPP */

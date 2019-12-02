@@ -1,6 +1,6 @@
 //
 //  electron_optimisation_algorithm.cpp
-//  indigox
+//  indigo-bondorder
 //
 //  Created by Welsh, Ivan on 13/09/17.
 //  Copyright © 2017 Allison Group. All rights reserved.
@@ -59,7 +59,7 @@ void ElectronOptimisationAlgorithm::PopulateMVP2EV() {
     mvp2ev_.emplace(id, *v);
   }
 }
-
+//Here is the method to apply electron assignment
 bool ElectronOptimisationAlgorithm::ApplyElectronAssignment(Uint idx) {
   if (idx >= minDistributions_.size()) {
     std::cerr << "Index " << idx << " is out of range." << std::endl;

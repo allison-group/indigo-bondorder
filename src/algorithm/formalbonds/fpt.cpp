@@ -1,6 +1,6 @@
 //
 //  fpt.cpp
-//  indigox
+//  indigo-bondorder
 //
 //  Created by Welsh, Ivan on 4/12/17.
 //  Copyright © 2017 Allison Group. All rights reserved.

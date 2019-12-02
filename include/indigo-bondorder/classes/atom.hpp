@@ -7,8 +7,8 @@
  *  @copyright The MIT License
  */
 
-#ifndef INDIGOX_CLASSES_ATOM_HPP
-#define INDIGOX_CLASSES_ATOM_HPP
+#ifndef INDIGO_BONDORDER_CLASSES_ATOM_HPP
+#define INDIGO_BONDORDER_CLASSES_ATOM_HPP
 
 #include <array>
 #include <cstdint>
@@ -128,4 +128,4 @@ namespace indigox {
   };
 }
 
-#endif /* INDIGOX_CLASSES_ATOM_HPP */
+#endif /* INDIGO_BONDORDER_CLASSES_ATOM_HPP */

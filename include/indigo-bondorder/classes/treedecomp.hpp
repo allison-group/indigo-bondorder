@@ -1,13 +1,13 @@
 //
 //  tree_decomposition.hpp
-//  indigox
+//  indigo-bondorder
 //
 //  Created by Welsh, Ivan on 11/01/18.
 //  Copyright © 2017 Allison Group. All rights reserved.
 //
 
-#ifndef INDIGOX_CLASSES_TREEDECOMP_HPP
-#define INDIGOX_CLASSES_TREEDECOMP_HPP
+#ifndef INDIGO_BONDORDER_CLASSES_TREEDECOMP_HPP
+#define INDIGO_BONDORDER_CLASSES_TREEDECOMP_HPP
 
 #include <map>
 #include <set>
@@ -69,5 +69,5 @@ namespace indigox {
   
 }
 
-#endif /* INDIGOX_CLASSES_TREEDECOMP_HPP */
+#endif /* INDIGO_BONDORDER_CLASSES_TREEDECOMP_HPP */
 

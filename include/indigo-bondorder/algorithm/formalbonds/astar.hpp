@@ -1,6 +1,6 @@
 //
 //  astar.hpp
-//  indigox
+//  indigo-bondorder
 //
 //  Created by Welsh, Ivan on 30/10/17.
 //  Copyright © 2017 Allison Group. All rights reserved.

@@ -12,8 +12,8 @@
 
 #include "../api.hpp"
 
-#ifndef INDIGOX_UTILS_OPTIONS_HPP
-#define INDIGOX_UTILS_OPTIONS_HPP
+#ifndef INDIGO_BONDORDER_UTILS_OPTIONS_HPP
+#define INDIGO_BONDORDER_UTILS_OPTIONS_HPP
 
 namespace indigox {
   
@@ -100,4 +100,4 @@ namespace indigox {
   
 }
 
-#endif /* INDIGOX_UTILS_OPTIONS_HPP */
+#endif /* INDIGO_BONDORDER_UTILS_OPTIONS_HPP */

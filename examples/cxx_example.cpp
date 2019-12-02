@@ -1,5 +1,5 @@
 #include <iostream>
-#include <indigox/indigox.hpp>
+#include <indigo-bondorder/indigox.hpp>
 #include <chrono>
 
 /**

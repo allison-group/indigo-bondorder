@@ -7,8 +7,8 @@
  *  @copyright The MIT License
  */
 
-#ifndef INDIGOX_CLASSES_PERIODIC_TABLE_HPP
-#define INDIGOX_CLASSES_PERIODIC_TABLE_HPP
+#ifndef INDIGO_BONDORDER_CLASSES_PERIODIC_TABLE_HPP
+#define INDIGO_BONDORDER_CLASSES_PERIODIC_TABLE_HPP
 
 #include <cstdint>
 #include <iostream>
@@ -151,4 +151,4 @@ namespace indigox {
   bool operator!=(Element_p l, Element_p r);
 }
 
-#endif /* INDIGOX_CLASSES_PERIODIC_TABLE_HPP */
+#endif /* INDIGO_BONDORDER_CLASSES_PERIODIC_TABLE_HPP */

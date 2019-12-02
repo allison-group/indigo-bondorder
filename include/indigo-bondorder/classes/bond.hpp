@@ -11,8 +11,8 @@
 #include "../api.hpp"
 #include "../utils/counter.hpp"
 
-#ifndef INDIGOX_CLASSES_BOND_HPP
-#define INDIGOX_CLASSES_BOND_HPP
+#ifndef INDIGO_BONDORDER_CLASSES_BOND_HPP
+#define INDIGO_BONDORDER_CLASSES_BOND_HPP
 
 namespace indigox {
   
@@ -110,4 +110,4 @@ namespace indigox {
   
 }
 
-#endif /* INDIGOX_CLASSES_BOND_HPP */
+#endif /* INDIGO_BONDORDER_CLASSES_BOND_HPP */

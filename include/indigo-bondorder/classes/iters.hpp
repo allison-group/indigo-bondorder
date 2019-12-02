@@ -1,6 +1,6 @@
 //
 //  iters.hpp
-//  indigox
+//  indigo-bondorder
 //
 //  Created by Ivan Welsh on 7/01/18.
 //  Copyright © 2018 Hermes Productions. All rights reserved.
@@ -16,8 +16,8 @@
 #include "bond.hpp"
 #include "molecule.hpp"
 
-#ifndef INDIGOX_CLASSES_ITERS_HPP
-#define INDIGOX_CLASSES_ITERS_HPP
+#ifndef INDIGO_BONDORDER_CLASSES_ITERS_HPP
+#define INDIGO_BONDORDER_CLASSES_ITERS_HPP
 
 namespace indigox {
   
@@ -65,4 +65,4 @@ namespace indigox {
   };
 }
 
-#endif /* INDIGOX_CLASSES_ITERS_HPP */
+#endif /* INDIGO_BONDORDER_CLASSES_ITERS_HPP */

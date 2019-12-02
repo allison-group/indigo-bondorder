@@ -1,6 +1,6 @@
 //
 //  iters.cpp
-//  indigox
+//  indigo-bondorder
 //
 //  Created by Ivan Welsh on 7/01/18.
 //  Copyright © 2018 Hermes Productions. All rights reserved.

@@ -1,13 +1,13 @@
 //
 //  fpt.hpp
-//  indigox
+//  indigo-bondorder
 //
 //  Created by Welsh, Ivan on 4/12/17.
 //  Copyright © 2017 Allison Group. All rights reserved.
 //
 
-#ifndef INDIGOX_FORMALBONDS_FPT_ALGO_HPP
-#define INDIGOX_FORMALBONDS_FPT_ALGO_HPP
+#ifndef INDIGO_BONDORDER_FORMALBONDS_FPT_ALGO_HPP
+#define INDIGO_BONDORDER_FORMALBONDS_FPT_ALGO_HPP
 
 #include <map>
 #include <vector>
@@ -81,4 +81,4 @@ namespace indigox {
   }
 }
 
-#endif /* INDIGOX_FORMALBONDS_FPT_ALGO_HPP */
+#endif /* INDIGO_BONDORDER_FORMALBONDS_FPT_ALGO_HPP */

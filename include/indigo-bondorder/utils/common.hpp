@@ -7,8 +7,8 @@
  *  @copyright The MIT License
  */
 
-#ifndef INDIGOX_UTILS_COMMON_HPP
-#define INDIGOX_UTILS_COMMON_HPP
+#ifndef INDIGO_BONDORDER_UTILS_COMMON_HPP
+#define INDIGO_BONDORDER_UTILS_COMMON_HPP
 
 #include <algorithm>
 
@@ -30,7 +30,7 @@ namespace indigox {
     String randomString(size_t);
     
   }  // namespace utils
-}  // namespace indigox
+}  // namespace indigo-bondorder
 
 
-#endif /* INDIGOX_UTILS_COMMON_HPP */
+#endif /* INDIGO_BONDORDER_UTILS_COMMON_HPP */

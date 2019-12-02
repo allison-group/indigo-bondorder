@@ -1,13 +1,13 @@
 //
 //  molecular_graph.hpp
-//  indigox
+//  indigo-bondorder
 //
 //  Created by Welsh, Ivan on 25/08/17.
 //  Copyright © 2017 Allison Group. All rights reserved.
 //
 
-#ifndef INDIGOX_CLASSES_MOLECULAR_GRAPH_HPP
-#define INDIGOX_CLASSES_MOLECULAR_GRAPH_HPP
+#ifndef INDIGO_BONDORDER_CLASSES_MOLECULAR_GRAPH_HPP
+#define INDIGO_BONDORDER_CLASSES_MOLECULAR_GRAPH_HPP
 
 #include <cstdint>
 #include <map>
@@ -90,6 +90,6 @@ namespace indigox {
     
   };
   
-}  // namespace indigox
+}  // namespace indigo-bondorder
 
-#endif /* INDIGOX_CLASSES_MOLECULAR_GRAPH_HPP */
+#endif /* INDIGO_BONDORDER_CLASSES_MOLECULAR_GRAPH_HPP */
