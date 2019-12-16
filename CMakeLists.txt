@@ -2,7 +2,7 @@
 CMAKE_MINIMUM_REQUIRED(VERSION 3.5)
 CMAKE_POLICY(VERSION 3.5)
 
-PROJECT(indigox VERSION 0.7.2.0) # change project to indigo-bondorder?
+PROJECT(indigo-bondorder VERSION 1.0.0) # change project to indigo-bondorder?
 
 # We require c++-14 compiler
 SET(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -30,20 +30,20 @@ SET(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Og -DDEBUG")
 SET(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE}")
 INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR}/include/indigo-bondorder)
 
-# Set default install prefix to /usr/local/opt/indigox
+# Set default install prefix to /usr/local/opt/indigo-bondorder
 IF(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
-  SET(CMAKE_INSTALL_PREFIX "/usr/local/opt/${PROJECT_NAME}" CACHE PATH "..." FORCE)
+  SET(CMAKE_INSTALL_PREFIX "/usr/local/opt/${PROJECT_NAME}")
 ELSE()
-  SET(CMAKE_INSTALL_PREFIX ${CMAKE_INSTALL_PREFIX}/${PROJECT_NAME} CACHE PATH "..." FORCE)
+  SET(CMAKE_INSTALL_PREFIX ${CMAKE_INSTALL_PREFIX}/${PROJECT_NAME})
 ENDIF()
 # Setup install directories
 INCLUDE(GNUInstallDirs)
 
 # Line below was in original script, but stopped the data dir being set later during runs...
-#ADD_DEFINITIONS(-DDFT_DATA_DIR=${CMAKE_INSTALL_FULL_DATAROOTDIR})
+ADD_DEFINITIONS(-DDFT_DATA_DIR="${CMAKE_INSTALL_PREFIX}/data")
 
-# List all the files to compile into the indigox library
-SET(INDIGOX_LIB_SRCS
+# List all the files to compile into the indigo-bondorder library
+SET(INDIGO_BONDORDER_LIB_SRCS
     src/algorithm/electron_optimisation.cpp
     src/algorithm/formalbonds/astar.cpp
     src/algorithm/formalbonds/elimination_ordering.cpp
@@ -67,7 +67,7 @@ SET(INDIGOX_LIB_SRCS
     src/utils/options.cpp)
 
 # Build the library
-ADD_LIBRARY(indigox STATIC ${INDIGOX_LIB_SRCS})
+ADD_LIBRARY(indigo-bondorder STATIC ${INDIGO_BONDORDER_LIB_SRCS})
 
 # We don't provide a boost version and it is required, so find it
 # Sometime I need to figure out a minimum required version for it. :S
@@ -86,20 +86,20 @@ IF(USE_JAVA_QUICKBB)
   FIND_PACKAGE(JNI REQUIRED)
   ADD_DEFINITIONS(-DBUILD_JAVA)
   INCLUDE_DIRECTORIES(${JNI_INCLUDE_DIRS})
-  TARGET_LINK_LIBRARIES(indigox ${JNI_LIBRARIES})
+  TARGET_LINK_LIBRARIES(indigo-bondorder ${JNI_LIBRARIES})
 ENDIF(USE_JAVA_QUICKBB)
 
-# Build bindings if requested
-IF(BUILD_PYTHON)
-  ADD_SUBDIRECTORY(src/python)
-ELSE(BUILD_PYTHON)
-  MESSAGE(STATUS "Building of Python bindings disabled.")
-ENDIF(BUILD_PYTHON)
+## Build bindings if requested
+#IF(BUILD_PYTHON)
+#  ADD_SUBDIRECTORY(src/python)
+#ELSE(BUILD_PYTHON)
+#  MESSAGE(STATUS "Building of Python bindings disabled.")
+#ENDIF(BUILD_PYTHON)
 
 IF(BUILD_EXAMPLES)
     ADD_EXECUTABLE(cxx_example examples/cxx_example.cpp)
     TARGET_INCLUDE_DIRECTORIES(cxx_example BEFORE PRIVATE ${PROJECT_SOURCE_DIR}/include)
-    TARGET_LINK_LIBRARIES(cxx_example indigox)
+    TARGET_LINK_LIBRARIES(cxx_example indigo-bondorder)
     ADD_CUSTOM_TARGET(examples ALL)
     ADD_DEPENDENCIES(examples cxx_example)
     INSTALL(TARGETS cxx_example DESTINATION ${CMAKE_INSTALL_PREFIX}/examples)
@@ -129,7 +129,7 @@ FILE(COPY examples/python_example.py DESTINATION examples)
 
 # Install examples
 # Install library
-INSTALL(TARGETS indigox DESTINATION ${CMAKE_INSTALL_LIBDIR})
+INSTALL(TARGETS indigo-bondorder DESTINATION ${CMAKE_INSTALL_LIBDIR})
 
 # Install header files. This should includes boost if the repo version is being used
 INSTALL(DIRECTORY ${PROJECT_SOURCE_DIR}/include/indigo-bondorder
