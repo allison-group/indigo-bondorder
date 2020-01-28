@@ -40,7 +40,7 @@ ENDIF()
 INCLUDE(GNUInstallDirs)
 
 # Line below was in original script, but stopped the data dir being set later during runs...
-ADD_DEFINITIONS(-DDFT_DATA_DIR="${CMAKE_INSTALL_PREFIX}/data")
+ADD_DEFINITIONS(-DDFT_DATA_DIR=${CMAKE_INSTALL_PREFIX}/data)
 
 # List all the files to compile into the indigo-bondorder library
 SET(INDIGO_BONDORDER_LIB_SRCS
@@ -90,11 +90,11 @@ IF(USE_JAVA_QUICKBB)
 ENDIF(USE_JAVA_QUICKBB)
 
 ## Build bindings if requested
-#IF(BUILD_PYTHON)
-#  ADD_SUBDIRECTORY(src/python)
-#ELSE(BUILD_PYTHON)
-#  MESSAGE(STATUS "Building of Python bindings disabled.")
-#ENDIF(BUILD_PYTHON)
+IF(BUILD_PYTHON)
+  ADD_SUBDIRECTORY(src/python)
+ELSE(BUILD_PYTHON)
+  MESSAGE(STATUS "Building of Python bindings disabled.")
+ENDIF(BUILD_PYTHON)
 
 IF(BUILD_EXAMPLES)
     ADD_EXECUTABLE(cxx_example examples/cxx_example.cpp)
@@ -144,7 +144,8 @@ INSTALL(FILES data/atomenergies_def2svpd.txt
         data/bondenergies_def2tzvppd_withbsse.txt
         data/periodictable.txt
         external/libtw.jar
-        DESTINATION ${CMAKE_INSTALL_DATAROOTDIR})
+        DESTINATION ${CMAKE_INSTALL_PREFIX}/data)
+
 # Install documentation
 INSTALL(DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/docs DESTINATION ${CMAKE_INSTALL_DOCDIR} OPTIONAL)
 

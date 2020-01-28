@@ -1,4 +1,4 @@
-SET(INDIGOX_PYTHON_INTERFACE_SRCS
+SET(INDIGO_BONDORDER_PYTHON_INTERFACE_SRCS
     interface.cpp
     pyatom.cpp
     pybond.cpp
@@ -21,13 +21,13 @@ ELSE(PYTHON_SITE_PACKAGES)
 ENDIF(PYTHON_SITE_PACKAGES)
 
 # Add the python module
-PYBIND11_ADD_MODULE(pyindigox ${INDIGOX_PYTHON_INTERFACE_SRCS})
+PYBIND11_ADD_MODULE(pyindigox_bondorder ${INDIGO_BONDORDER_PYTHON_INTERFACE_SRCS})
 # Check compiler has required c++-14 features
 # GCC versions < 5 pass the has -std=c++14 flag test, but don't have relaxed_constexpr as required
-TARGET_COMPILE_FEATURES(pyindigox PRIVATE cxx_return_type_deduction)
-TARGET_COMPILE_FEATURES(pyindigox PRIVATE cxx_relaxed_constexpr)
-TARGET_LINK_LIBRARIES(pyindigox PRIVATE indigox)
+TARGET_COMPILE_FEATURES(pyindigox_bondorder PRIVATE cxx_return_type_deduction)
+TARGET_COMPILE_FEATURES(pyindigox_bondorder PRIVATE cxx_relaxed_constexpr)
+TARGET_LINK_LIBRARIES(pyindigox_bondorder PRIVATE indigo-bondorder)
 
 # Set install rules
-INSTALL(TARGETS pyindigox DESTINATION ${PYTHON_SITE_PACKAGES}/indigox)
-INSTALL(FILES __init__.py DESTINATION ${PYTHON_SITE_PACKAGES}/indigox)
+INSTALL(TARGETS pyindigox_bondorder DESTINATION ${PYTHON_SITE_PACKAGES}/indigo-bondorder)
+INSTALL(FILES __init__.py DESTINATION ${PYTHON_SITE_PACKAGES}/indigo-bondorder)
