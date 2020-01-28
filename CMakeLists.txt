@@ -2,7 +2,7 @@
 CMAKE_MINIMUM_REQUIRED(VERSION 3.5)
 CMAKE_POLICY(VERSION 3.5)
 
-PROJECT(indigo-bondorder VERSION 1.0.0) # change project to indigo-bondorder?
+PROJECT(indigo-bondorder VERSION 1.0.0)
 
 # We require c++-14 compiler
 SET(CMAKE_CXX_STANDARD_REQUIRED ON)
