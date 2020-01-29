@@ -39,7 +39,6 @@ ENDIF()
 # Setup install directories
 INCLUDE(GNUInstallDirs)
 
-# Line below was in original script, but stopped the data dir being set later during runs...
 ADD_DEFINITIONS(-DDFT_DATA_DIR=${CMAKE_INSTALL_PREFIX}/data)
 
 # List all the files to compile into the indigo-bondorder library
@@ -90,11 +89,11 @@ IF(USE_JAVA_QUICKBB)
 ENDIF(USE_JAVA_QUICKBB)
 
 ## Build bindings if requested
-IF(BUILD_PYTHON)
-  ADD_SUBDIRECTORY(src/python)
-ELSE(BUILD_PYTHON)
-  MESSAGE(STATUS "Building of Python bindings disabled.")
-ENDIF(BUILD_PYTHON)
+#IF(BUILD_PYTHON)
+#  ADD_SUBDIRECTORY(src/python)
+#ELSE(BUILD_PYTHON)
+#  MESSAGE(STATUS "Building of Python bindings disabled.")
+#ENDIF(BUILD_PYTHON)
 
 IF(BUILD_EXAMPLES)
     ADD_EXECUTABLE(cxx_example examples/cxx_example.cpp)
