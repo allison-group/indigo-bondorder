@@ -32,10 +32,9 @@ INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR}/include/indigo-bondorder)
 
 # Set default install prefix to /usr/local/opt/indigo-bondorder
 IF(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
-  SET(CMAKE_INSTALL_PREFIX "/usr/local/opt/${PROJECT_NAME}")
-ELSE()
-  SET(CMAKE_INSTALL_PREFIX ${CMAKE_INSTALL_PREFIX}/${PROJECT_NAME})
+  SET(CMAKE_INSTALL_PREFIX "/usr/local/opt/${PROJECT_NAME}" CACHE PATH "..." FORCE)
 ENDIF()
+
 # Setup install directories
 INCLUDE(GNUInstallDirs)
 
@@ -88,7 +87,7 @@ IF(USE_JAVA_QUICKBB)
   TARGET_LINK_LIBRARIES(indigo-bondorder ${JNI_LIBRARIES})
 ENDIF(USE_JAVA_QUICKBB)
 
-## Build bindings if requested
+## Build bindings if requested. Disabled in this branch
 #IF(BUILD_PYTHON)
 #  ADD_SUBDIRECTORY(src/python)
 #ELSE(BUILD_PYTHON)
@@ -112,12 +111,12 @@ IF(DOXYGEN_FOUND)
   SET(DOXYGEN_IN ${CMAKE_CURRENT_SOURCE_DIR}/docs/Doxyfile.in)
   SET(DOXYGEN_OUT ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile)
   CONFIGURE_FILE(${DOXYGEN_IN} ${DOXYGEN_OUT} @ONLY)
-  ADD_CUSTOM_TARGET(doc 
+  ADD_CUSTOM_TARGET(doc_bondorder
   COMMAND ${DOXYGEN_EXECUTABLE} ${DOXYGEN_OUT}
   WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
   COMMENT "Generating API documentation with doxygen"
   VERBATIM )
-  MESSAGE(STATUS "Doxygen located. Use 'make doc' to build documentation.")
+  MESSAGE(STATUS "Doxygen located. Use 'make doc_bondorder' to build documentation for indigo-bondorder submodule.")
 ELSE(DOXYGEN_FOUND)
   MESSAGE(STATUS "Unable to locate doxygen. Documentation will NOT be built.")
 ENDIF(DOXYGEN_FOUND)

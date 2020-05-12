@@ -13,7 +13,8 @@
  * ring).
  *
  * Note: If this example has trouble reading file locations, you may need to set
- * Options::DATA_DIRECTORY to a the full path of your .data folder
+ * Options::DATA_DIRECTORY to a the full path of your installed data folder,
+ * usually /usr/local/opt/indigo-bondorder/data.
  *
  * @return
  */
@@ -25,6 +26,7 @@ int main() {
     Options::AssignElectrons::FPT::ADD_EDGES_TO_TD = false;
     Options::AssignElectrons::FPT::MINIMUM_PROPAGATION_DEPTH = 1;
     Options::AssignElectrons::USE_ELECTRON_PAIRS = false;
+//    Options::DATA_DIRECTORY = "/usr/local/opt/indigo-bondorder/data";
 
     auto before_PT = std::chrono::high_resolution_clock::now();
 
